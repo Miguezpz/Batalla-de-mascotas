@@ -16,4 +16,5 @@ let oreo = new Batalla_de_mascotas("Oreo", "null", "oreo_id", "papel");
 let harry = new Batalla_de_mascotas("Harry", "null", "harry_id", "papel");
 let toby = new Batalla_de_mascotas("Toby", "null", "toby_id", "papel");
 
-// Opciones: Gato Huaniqueo, Gato Olga, kong
+// Opciones: Gato Huaniqueo, (guero, mona), kong, regalito, la negra, (bobby, dinky, wanda), hueso, kaiser,
+//claudia gato; pug de arturin;
