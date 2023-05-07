@@ -9,7 +9,13 @@ class Batalla_de_mascotas {
 }
 
 const caja_mascotas = document.getElementById("caja-mascotas");
-const boton_seleccionar = document.getElementById("boton-seleccionar");
+let boton_seleccionar = document.getElementById("boton-seleccionar");
+let input_radio_peluchin;
+let input_radio_sazu;
+let input_radio_aren;
+let input_radio_oreo;
+let input_radio_harry;
+let input_radio_toby;
 let mascota_P1;
 let mascota_P2;
 
@@ -33,26 +39,36 @@ function iniciarJuego() {
             <label for="${x.id}">${x.nombre}</label>
             <input type="radio" id="${x.id}" name="enlace">
         `
-        let labels_mascotas = `<label for="${x.id}">${x.nombre}</label>`;
         caja_mascotas.innerHTML += estructura;
     });
+    
+    input_radio_peluchin = document.getElementById("peluchin_id");
+    input_radio_sazu = document.getElementById("sazu_id");
+    input_radio_aren = document.getElementById("aren_id");
+    input_radio_oreo = document.getElementById("oreo_id");
+    input_radio_harry = document.getElementById("harry_id");
+    input_radio_toby = document.getElementById("toby_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
 };
 
 function seleccionarMascota_P1() {
-    labels_mascotas.forEach(x => {
+    if (input_radio_peluchin.checked) {
+        mascota_P1 = peluchin;
+    } else if (input_radio_sazu.checked) {
+        mascota_P1 = sazu;
+    } else if (input_radio_aren.checked) {
+        mascota_P1 = aren;
+    } else if (input_radio_oreo.checked) {
+        mascota_P1 = oreo;
+    } else if (input_radio_harry.checked) {
+        mascota_P1 = harry;
+    } else if (input_radio_toby.checked) {
+        mascota_P1 = toby;
+    }
 
-        x.addEventListener("checked", seleccion);
-
-        function seleccion() {
-            
-        }
-    })
-
-    
+    alert(mascota_P1.nombre);
 }
-
-//Necesito crear una variable que guarde todos los labels
+    
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
