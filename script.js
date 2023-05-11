@@ -9,7 +9,8 @@ class Batalla_de_mascotas {
 }
 
 const caja_mascotas = document.getElementById("caja-mascotas");
-let boton_seleccionar = document.getElementById("boton-seleccionar");
+const boton_seleccionar = document.getElementById("boton-seleccionar");
+const caja_botones_ataque = document.getElementById("caja-botones-ataque");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -19,6 +20,11 @@ let input_radio_toby;
 let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
+let ataques_P1;
+let botones_ataques_P1;
+let botones_por_su_class;
+let ataques_seleccionados_P1 = [];
+
 
 let piedra = {emoji:"🪨", tipo:"piedra"};
 let papel = {emoji:"📃", tipo:"papel"};
@@ -87,8 +93,6 @@ function seleccionarMascota_P1() {
         mascota_P1 = toby;
         seleccionarMascota_CPU()
     }
-
-    alert(mascota_P1.nombre);
 }
 
 function numeroAleatorio(min, max) {
@@ -96,8 +100,40 @@ function numeroAleatorio(min, max) {
 }
 
 function seleccionarMascota_CPU() {
-    mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)].nombre;
-    alert(mascota_CPU);
+
+    mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
+    console.log(mascota_P1.nombre + " " + mascota_CPU.nombre);
+    generarBotonesDeAtaque();
+}
+
+function generarBotonesDeAtaque() {
+    
+    ataques_P1 = mascota_P1.ataques;
+
+    ataques_P1.forEach(x => {
+        botones_ataques_P1 = `
+            <button class="enlace2">${x.emoji}</button>
+        `
+        caja_botones_ataque.innerHTML += botones_ataques_P1;
+        botones_por_su_class = document.querySelectorAll(".enlace2");
+
+        botones_por_su_class.forEach(x => {
+            x.addEventListener("click", (e) => {
+                console.log(e);
+
+                if (e.target.textContent === "🪨") {
+                    ataques_seleccionados_P1.push("🪨");
+                    x.disabled = true;
+                } else if (e.target.textContent === "📃") {
+                    ataques_seleccionados_P1.push("📃");
+                    x.disabled = true;
+                } else if (e.target.textContent === "✂️") {
+                    ataques_seleccionados_P1.push("✂️");
+                    x.disabled = true;
+                }
+            })
+        })
+    })
 }
 
 //------------------------------------------------
