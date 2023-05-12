@@ -11,6 +11,8 @@ class Batalla_de_mascotas {
 const caja_mascotas = document.getElementById("caja-mascotas");
 const boton_seleccionar = document.getElementById("boton-seleccionar");
 const caja_botones_ataque = document.getElementById("caja-botones-ataque");
+const registro_ataques_J1 = document.getElementById("ataques-J1");
+const registro_ataques_J2_CPU = document.getElementById("ataques-J2/CPU");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -123,6 +125,7 @@ function generarBotonesDeAtaque() {
 
                 if (e.target.textContent === "🪨") {
                     ataques_seleccionados_P1.push("🪨");
+                    mensajes(ataques_P1[0].emoji, "ok");
                     x.disabled = true;
                 } else if (e.target.textContent === "📃") {
                     ataques_seleccionados_P1.push("📃");
@@ -135,6 +138,18 @@ function generarBotonesDeAtaque() {
         })
     })
 }
+
+function mensajes(x, y) {
+
+    let parrafo1 = document.createElement("p");
+    let parrafo2 = document.createElement("p");
+
+    parrafo1.innerHTML = x;
+    parrafo2.innerHTML = y;
+
+    registro_ataques_J1.appendChild(parrafo1);
+    registro_ataques_J2_CPU.appendChild(parrafo2);
+};
 
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
