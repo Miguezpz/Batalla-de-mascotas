@@ -2,3 +2,7 @@ body {
     background-color: azure;
     font-family: Helvetica;
 }
+
+.input-mascotas {
+    display: none;
+}

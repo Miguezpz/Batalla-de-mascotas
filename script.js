@@ -8,11 +8,21 @@ class Batalla_de_mascotas {
     }
 }
 
-const caja_mascotas = document.getElementById("caja-mascotas");
+const section_1 = document.getElementById("section_1");
+const section_2 = document.getElementById("section_2");
+const section_3 = document.getElementById("section_3");
+const section_4 = document.getElementById("section_4");
+const div_caja_mascotas = document.getElementById("caja-mascotas");
 const boton_seleccionar = document.getElementById("boton-seleccionar");
 const caja_botones_ataque = document.getElementById("caja-botones-ataque");
 const registro_ataques_J1 = document.getElementById("ataques-J1");
 const registro_ataques_J2_CPU = document.getElementById("ataques-J2/CPU");
+const boton_de_reiniciar = document.getElementById("boton-de-reiniciar");
+const div_resultado_del_combate = document.getElementById("resultado-del-combate")
+const div_nombre_mascota_J1 = document.getElementById("nombre-mascota-J1");
+const div_nombre_mascota_J2_CPU = document.getElementById("nombre-mascota-J2/CPU");
+const div_img_mascota_J1 = document.getElementById("img-J1");
+const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -36,9 +46,9 @@ let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 
 
-let piedra = {emoji:"🪨", tipo:"piedra"};
-let papel = {emoji:"📃", tipo:"papel"};
-let tijera = {emoji:"✂️", tipo:"tijera"};
+const piedra = {emoji:"🪨", tipo:"piedra"};
+const papel = {emoji:"📃", tipo:"papel"};
+const tijera = {emoji:"✂️", tipo:"tijera"};
 
 //Mascotas
 let mascotas = [];
@@ -65,12 +75,16 @@ toby.ataques.push(tijera, tijera, tijera, piedra, papel);
 
 //-----------------------------------------------------------------------------------------------------------------
 function iniciarJuego() {
+
+    secciones("flex", "none", "none", "none");
+
     mascotas.forEach(x => {
         let estructura = `
             <label for="${x.id}">${x.nombre}</label>
-            <input type="radio" id="${x.id}" name="enlace">
+            <input type="radio" id="${x.id}" name="enlace" class="input-mascotas">
         `
-        caja_mascotas.innerHTML += estructura;
+        /* <img src="${x.img}" alt="${x.nombre}"> */
+        div_caja_mascotas.innerHTML += estructura;
     });
     
     input_radio_peluchin = document.getElementById("peluchin_id");
@@ -81,26 +95,33 @@ function iniciarJuego() {
     input_radio_toby = document.getElementById("toby_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
+    boton_de_reiniciar.addEventListener("click", _ => location.reload());
 };
 
 function seleccionarMascota_P1() {
     if (input_radio_peluchin.checked) {
         mascota_P1 = peluchin;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_sazu.checked) {
         mascota_P1 = sazu;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_aren.checked) {
         mascota_P1 = aren;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_oreo.checked) {
         mascota_P1 = oreo;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_harry.checked) {
         mascota_P1 = harry;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_toby.checked) {
         mascota_P1 = toby;
+        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     }
 }
@@ -110,12 +131,36 @@ function numeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function secciones(uno,dos,tres,cuatro) {
+    section_1.style.display = uno;
+    section_2.style.display = dos;
+    section_3.style.display = tres;
+    section_4.style.display = cuatro;
+}
+
 function seleccionarMascota_CPU() {
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
+    div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU = mascota_CPU.ataques;
+    secciones("none", "flex", "none", "flex");
+    /* generarImagenesDeMascotas(); */
     generarBotonesDeAtaque();
 }
+
+function generarImagenesDeMascotas() {
+
+    let imagen_mascota_J1 = `
+        <img src="${mascota_P1.img}" alt="${mascota_P1.nombre}">
+    `;
+
+    let imagen_mascota_J2_CPU = `
+        <img src="${mascota_CPU.img}" alt="${mascota_CPU.nombre}">
+    `;
+
+    div_img_mascota_J1.innerHTML = imagen_mascota_J1;
+    div_img_mascota_J2_CPU.innerHTML = imagen_mascota_J2_CPU;
+};
 
 function generarBotonesDeAtaque() {
     
@@ -172,11 +217,7 @@ function combate() {
 
         for (let i = 0; i < 5; i ++) {
 
-            if (ataques_seleccionados_P1[i] === ataques_aleatorios_CPU[i]) {
-                
-                console.log("empate");
-
-            } else if (ataques_seleccionados_P1[i] === "🪨" && ataques_aleatorios_CPU[i] === "✂️") {
+            if (ataques_seleccionados_P1[i] === "🪨" && ataques_aleatorios_CPU[i] === "✂️") {
 
                 victorias_P1 ++;
 
@@ -194,25 +235,36 @@ function combate() {
         };
 
         if (victorias_P1 > victorias_CPU) {
-            alert("Gasnaste");
+            resultadoCombate("Gasnaste");
         } else if (victorias_P1 < victorias_CPU) {
-            alert("perdiste");
+            resultadoCombate("Perdiste");
         } else if (victorias_P1 === victorias_CPU) {
-            alert("empate");
+            resultadoCombate("Empate");
         }
+
+        secciones("none", "flex", "flex", "flex");
     }
 }
 
-function mensajes(x, y) {
+function resultadoCombate(text) {
 
-    let parrafo1 = document.createElement("p");
-    let parrafo2 = document.createElement("p");
+    div_resultado_del_combate.innerHTML = text;
+    imprimirAtaques();
+};
 
-    parrafo1.innerHTML = x;
-    parrafo2.innerHTML = y;
+function imprimirAtaques() {
 
-    registro_ataques_J1.appendChild(parrafo1);
-    registro_ataques_J2_CPU.appendChild(parrafo2);
+    for (let i = 0; i < ataques_P1.length; i++) {
+
+        let parrafo1 = document.createElement("p");
+        let parrafo2 = document.createElement("p");
+
+        parrafo1.innerHTML = ataques_seleccionados_P1[i];
+        parrafo2.innerHTML = ataques_aleatorios_CPU[i]; //-- Ajustado a CPU y no a J2.
+
+        registro_ataques_J1.appendChild(parrafo1);
+        registro_ataques_J2_CPU.appendChild(parrafo2);
+    };
 };
 
 //------------------------------------------------
