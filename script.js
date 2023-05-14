@@ -44,6 +44,7 @@ let victorias_P1 = 0;
 let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
+let boton;
 
 
 const piedra = {emoji:"🪨", tipo:"piedra", img:"./resources/assets/piedra.png"};
@@ -168,33 +169,43 @@ function generarBotonesDeAtaque() {
 
     ataques_P1.forEach(x => {
         botones_ataques_P1 = `
-            <button class="enlace2">${x.emoji}<img src="${x.img} class="img-ataque"></button>
+            <button class="botones-generados">
+                <img src="${x.img}" alt="${x.emoji}">   
+            </button>
         `
         caja_botones_ataque.innerHTML += botones_ataques_P1;
-        botones_por_su_class = document.querySelectorAll(".enlace2");
+        botones_por_su_class = document.querySelectorAll(".botones-generados img");
 
         botones_por_su_class.forEach(x => {
             x.addEventListener("click", (e) => {
-            
-                if (e.target.textContent === "🪨") {
-                    x.style.background = "grey";
-                    x.disabled = true;
+
+                console.log(e);
+                boton = e.target.parentNode;
+
+                if (e.target.alt === "🪨") {
+                    boton.style.background = "grey";
+                    boton.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("🪨");
-                } else if (e.target.textContent === "📃") {
-                    x.style.background = "grey";
-                    x.disabled = true;
+                } else if (e.target.alt === "📃") {
+                    boton.style.background = "grey";
+                    boton.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("📃");
-                } else if (e.target.textContent === "✂️") {
-                    x.style.background = "grey";
-                    x.disabled = true;
+                } else if (e.target.alt === "✂️") {
+                    boton.style.background = "grey";
+                    boton.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("✂️");
                 }
             })
         })
     })
+
+    //En este ejemplo, las imágenes se seleccionan usando document.querySelectorAll('.botones-generados img'), 
+    //lo que devuelve una lista de todas las imágenes dentro de los botones generados. Luego, se itera sobre esta 
+    //lista y se añade el EventListener correspondiente a cada imagen. Al hacer clic en la imagen, se comprueba su 
+    //atributo alt en lugar de textContent, ya que el contenido del botón ahora incluye tanto la imagen como el emoji.
 }
 
 function ataqueSeleccionado_P1(x) {
