@@ -46,9 +46,9 @@ let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 
 
-const piedra = {emoji:"🪨", tipo:"piedra"};
-const papel = {emoji:"📃", tipo:"papel"};
-const tijera = {emoji:"✂️", tipo:"tijera"};
+const piedra = {emoji:"🪨", tipo:"piedra", img:"./resources/assets/piedra.png"};
+const papel = {emoji:"📃", tipo:"papel", img:"./resources/assets/papel.png"};
+const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.png"};
 
 //Mascotas
 let mascotas = [];
@@ -168,7 +168,7 @@ function generarBotonesDeAtaque() {
 
     ataques_P1.forEach(x => {
         botones_ataques_P1 = `
-            <button class="enlace2">${x.emoji}</button>
+            <button class="enlace2">${x.emoji}<img src="${x.img} class="img-ataque"></button>
         `
         caja_botones_ataque.innerHTML += botones_ataques_P1;
         botones_por_su_class = document.querySelectorAll(".enlace2");

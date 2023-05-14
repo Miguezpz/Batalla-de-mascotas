@@ -6,3 +6,8 @@ body {
 .input-mascotas {
     display: none;
 }
+
+.img-ataque {
+    width: 100px;
+    height: 100px;
+}
