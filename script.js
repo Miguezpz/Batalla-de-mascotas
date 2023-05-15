@@ -34,7 +34,7 @@ let mascota_P2;
 let mascota_CPU;
 let ataques_P1;
 let ataques_P2;
-let ataques_CPU;
+let ataques_CPU = [];
 let botones_ataques_P1;
 let botones_por_su_class;
 let ataques_seleccionados_P1 = [];
@@ -143,7 +143,7 @@ function seleccionarMascota_CPU() {
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
-    ataques_CPU = mascota_CPU.ataques;
+    ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
     secciones("none", "flex", "none", "flex");
     /* generarImagenesDeMascotas(); */
     generarBotonesDeAtaque();
@@ -240,13 +240,17 @@ function combate() {
 
                 victorias_P1 ++;
 
+            } else if (ataques_seleccionados_P1[i] === ataques_aleatorios_CPU[i]){
+
+                //Empate- No hay acción;
+
             } else {
                 victorias_CPU ++;
             }
         };
 
         if (victorias_P1 > victorias_CPU) {
-            resultadoCombate("Gasnaste");
+            resultadoCombate("Ganaste");
         } else if (victorias_P1 < victorias_CPU) {
             resultadoCombate("Perdiste");
         } else if (victorias_P1 === victorias_CPU) {
