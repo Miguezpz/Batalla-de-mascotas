@@ -10,15 +10,15 @@
     <body>
         <!-- Selección de mascotas ---------------------------------------------->
         <section id="section_1">
-            <h1>BATALLA DE MASCOTAS</h1>
-            <h2>Selecciona tu mascota</h2>
+            <h1 class="titulo">BATALLA DE MASCOTAS</h1>
+            <h2 class="subtitulo">Selecciona tu mascota</h2>
             <div id="caja-mascotas"></div>
             <button id="boton-seleccionar">Seleccionar</button>
         </section>
         <!-- Selección de ataques ---------------------------------------------->
         <section id="section_2">
-            <h1>BATALLA DE MASCOTAS</h1>
-            <h2>Selecciona tus ataques</h2>
+            <h1 class="titulo">BATALLA DE MASCOTAS</h1>
+            <h2 class="subtitulo">Selecciona tus ataques</h2>
             <div id="caja-botones-ataque"></div>
         </section>
         <!-- Resultado y boton de reiniciar ------------------------------------->
@@ -27,21 +27,23 @@
             <button id="boton-de-reiniciar">Reiniciar</button>
         </section>
         <!-- Panel de combate      ---------------------------------------------->
-        <section id="section_4" class="panel-combate">
+        <section id="section_4">
 
-            <div>
-                <p id="nombre-mascota-J1"></p>
-                <div id="img-J1"></div>
-            </div>
+            <div class="panel-combate">
+                <div>
+                    <p id="nombre-mascota-J1"></p>
+                    <div id="img-J1"></div>
+                </div>
 
-            <div>
-                <div id="ataques-J1"></div>
-                <div id="ataques-J2/CPU"></div>
-            </div>
+                <div class="ataques-seleccionados">
+                    <div id="ataques-J1"></div>
+                    <div id="ataques-J2/CPU"></div>
+                </div>
 
-            <div>
-                <p id="nombre-mascota-J2/CPU"></p>
-                <div id="img-J2/CPU"></div>
+                <div>
+                    <p id="nombre-mascota-J2/CPU"></p>
+                    <div id="img-J2/CPU"></div>
+                </div>
             </div>
 
         </section>
