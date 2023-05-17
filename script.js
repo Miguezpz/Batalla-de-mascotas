@@ -27,7 +27,7 @@ let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
 let input_radio_oreo;
-let input_radio_harry;
+let input_radio_kong;
 let input_radio_toby;
 let mascota_P1;
 let mascota_P2;
@@ -46,7 +46,6 @@ let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton;
 
-
 const piedra = {emoji:"🪨", tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {emoji:"📃", tipo:"papel", img:"./resources/assets/papel.png"};
 const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.png"};
@@ -54,20 +53,20 @@ const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.p
 //Mascotas
 let mascotas = [];
 let peluchin = new Batalla_de_mascotas("Peluchin", "null", "peluchin_id", "piedra");
-let sazu = new Batalla_de_mascotas("Sazu", "null", "sazu_id", "piedra");
+let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/sazu.jpg", "sazu_id", "piedra");
 let aren = new Batalla_de_mascotas("Aren", "null", "aren_id", "papel");
 let oreo = new Batalla_de_mascotas("Oreo", "null", "oreo_id", "papel");
-let harry = new Batalla_de_mascotas("Harry", "null", "harry_id", "tijera");
+let kong = new Batalla_de_mascotas("Kong", "null", "kong_id", "tijera");
 let toby = new Batalla_de_mascotas("Toby", "null", "toby_id", "tijera");
 
-mascotas.push(peluchin,sazu,aren,oreo,harry,toby);
+mascotas.push(peluchin,sazu,aren,oreo,kong,toby);
 
 //Ataques
 peluchin.ataques.push(piedra, piedra, piedra, papel, tijera);
 sazu.ataques.push(piedra, piedra, piedra, papel, tijera);
 aren.ataques.push(papel, papel, papel, tijera, piedra);
 oreo.ataques.push(papel, papel, papel, tijera, piedra);
-harry.ataques.push(tijera, tijera, tijera, piedra, papel);
+kong.ataques.push(tijera, tijera, tijera, piedra, papel);
 toby.ataques.push(tijera, tijera, tijera, piedra, papel);
 
 // Opciones: Gato Huaniqueo, (guero, mona), kong, regalito, la negra, (bobby, dinky, wanda), hueso, kaiser,
@@ -92,7 +91,7 @@ function iniciarJuego() {
     input_radio_sazu = document.getElementById("sazu_id");
     input_radio_aren = document.getElementById("aren_id");
     input_radio_oreo = document.getElementById("oreo_id");
-    input_radio_harry = document.getElementById("harry_id");
+    input_radio_kong = document.getElementById("kong_id");
     input_radio_toby = document.getElementById("toby_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
@@ -116,8 +115,8 @@ function seleccionarMascota_P1() {
         mascota_P1 = oreo;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
-    } else if (input_radio_harry.checked) {
-        mascota_P1 = harry;
+    } else if (input_radio_kong.checked) {
+        mascota_P1 = kong;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     } else if (input_radio_toby.checked) {
@@ -133,6 +132,7 @@ function numeroAleatorio(min, max) {
 }
 
 function secciones(uno,dos,tres,cuatro) {
+
     section_1.style.display = uno;
     section_2.style.display = dos;
     section_3.style.display = tres;
