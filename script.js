@@ -23,6 +23,8 @@ const div_nombre_mascota_J1 = document.getElementById("nombre-mascota-J1");
 const div_nombre_mascota_J2_CPU = document.getElementById("nombre-mascota-J2/CPU");
 const div_img_mascota_J1 = document.getElementById("img-J1");
 const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
+const div_victorias_J1 = document.getElementById("victorias-J1");
+const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -52,12 +54,12 @@ const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.p
 
 //Mascotas
 let mascotas = [];
-let peluchin = new Batalla_de_mascotas("Peluchin", "null", "peluchin_id", "piedra");
-let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/sazu.jpg", "sazu_id", "piedra");
-let aren = new Batalla_de_mascotas("Aren", "null", "aren_id", "papel");
-let oreo = new Batalla_de_mascotas("Oreo", "null", "oreo_id", "papel");
-let kong = new Batalla_de_mascotas("Kong", "null", "kong_id", "tijera");
-let toby = new Batalla_de_mascotas("Toby", "null", "toby_id", "tijera");
+let peluchin = new Batalla_de_mascotas("Peluchin", "./resources/assets/demo.jpg", "peluchin_id", "piedra");
+let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/demo.jpg", "sazu_id", "piedra");
+let aren = new Batalla_de_mascotas("Aren", "./resources/assets/demo.jpg", "aren_id", "papel");
+let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/demo.jpg", "oreo_id", "papel");
+let kong = new Batalla_de_mascotas("Kong", "./resources/assets/demo.jpg", "kong_id", "tijera");
+let toby = new Batalla_de_mascotas("Toby", "./resources/assets/demo.jpg", "toby_id", "tijera");
 
 mascotas.push(peluchin,sazu,aren,oreo,kong,toby);
 
@@ -139,13 +141,19 @@ function secciones(uno,dos,tres,cuatro) {
     section_4.style.display = cuatro;
 }
 
+function mostrarVictorias(text1, text2) {
+    div_victorias_J1.innerHTML = text1;
+    div_victorias_J2_CPU.innerHTML = text2;
+};
+
 function seleccionarMascota_CPU() {
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
+    mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
     secciones("none", "flex", "none", "flex");
-    /* generarImagenesDeMascotas(); */
+    generarImagenesDeMascotas();
     generarBotonesDeAtaque();
 }
 
@@ -257,6 +265,7 @@ function combate() {
             resultadoCombate("Empate");
         }
 
+        mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
         secciones("none", "flex", "flex", "flex");
     }
 }
