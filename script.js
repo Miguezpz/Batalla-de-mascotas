@@ -54,10 +54,10 @@ const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.p
 
 //Mascotas
 let mascotas = [];
-let peluchin = new Batalla_de_mascotas("Peluchin", "./resources/assets/demo.jpg", "peluchin_id", "piedra");
-let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/demo.jpg", "sazu_id", "piedra");
-let aren = new Batalla_de_mascotas("Aren", "./resources/assets/demo.jpg", "aren_id", "papel");
-let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/demo.jpg", "oreo_id", "papel");
+let peluchin = new Batalla_de_mascotas("Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "piedra");
+let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/sazu.jpg", "sazu_id", "piedra");
+let aren = new Batalla_de_mascotas("Aren", "./resources/assets/aren.jpg", "aren_id", "papel");
+let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/oreo.jpg", "oreo_id", "papel");
 let kong = new Batalla_de_mascotas("Kong", "./resources/assets/demo.jpg", "kong_id", "tijera");
 let toby = new Batalla_de_mascotas("Toby", "./resources/assets/demo.jpg", "toby_id", "tijera");
 
@@ -159,11 +159,11 @@ function seleccionarMascota_CPU() {
 function generarImagenesDeMascotas() {
 
     let imagen_mascota_J1 = `
-        <img src="${mascota_P1.img}" alt="${mascota_P1.nombre}">
+        <img src="${mascota_P1.img}" alt="${mascota_P1.nombre}" class="mascota-seleccionada">
     `;
 
     let imagen_mascota_J2_CPU = `
-        <img src="${mascota_CPU.img}" alt="${mascota_CPU.nombre}">
+        <img src="${mascota_CPU.img}" alt="${mascota_CPU.nombre}" class="mascota-seleccionada">
     `;
 
     div_img_mascota_J1.innerHTML = imagen_mascota_J1;

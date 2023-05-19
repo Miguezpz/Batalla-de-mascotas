@@ -52,6 +52,11 @@ body {
     align-items: center;
 }
 
+.label-mascota img {
+    width: 200px;
+    height: 200px;
+}
+
 #boton-seleccionar {
     margin: 15px 0px 0px 0px;
 }
@@ -120,6 +125,11 @@ body {
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
     border: solid 2px black;
+}
+
+.mascota-seleccionada {
+    width: 200px;
+    height: 200px;
 }
 
 .ataques-seleccionados {
