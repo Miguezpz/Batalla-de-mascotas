@@ -82,10 +82,9 @@ function iniciarJuego() {
 
     mascotas.forEach(x => {
         let estructura = `
-            <label for="${x.id}">${x.nombre}</label>
+            <label for="${x.id}" class="label-mascota"><img src="${x.img}" alt="${x.nombre}">${x.nombre}</label>
             <input type="radio" id="${x.id}" name="enlace" class="input-mascotas">
         `
-        /* <img src="${x.img}" alt="${x.nombre}"> */
         div_caja_mascotas.innerHTML += estructura;
     });
     
