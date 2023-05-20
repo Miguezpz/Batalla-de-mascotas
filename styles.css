@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
 
+/* 
+    negro: #2A363B
+    rojo: #CF4647
+    amarilo: #F5D061
+    blanco: #F8F6F6
+
+
+    piel: #FFF7D4
+    amarillo: #FFD95A
+    naranja: #C07F00
+    marron: #4C3D3D
+*/
+
 * {
     margin:0px;
     padding: 0px;
@@ -7,7 +20,8 @@
 }
 
 body {
-    background-color: azure;
+    background-color: #FFD95A;
+    color: black;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -50,11 +64,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    width: 210px;
+    height: 210px;
+    background-color: #F8F6F6;
 }
 
 .label-mascota img {
-    width: 200px;
-    height: 200px;
+    margin: 0px;
+    padding: 0px;
+    width: 170px;
+    height: 170px;
 }
 
 #boton-seleccionar {
@@ -125,6 +145,7 @@ body {
     display: grid;
     grid-template: 1fr / 1fr 1fr 1fr;
     border: solid 2px black;
+    background-color: #F8F6F6;
 }
 
 .mascota-seleccionada {
