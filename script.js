@@ -46,7 +46,7 @@ let victorias_P1 = 0;
 let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
-let boton;
+let boton_presionado;
 
 const piedra = {emoji:"🪨", tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {emoji:"📃", tipo:"papel", img:"./resources/assets/papel.png"};
@@ -187,21 +187,21 @@ function generarBotonesDeAtaque() {
             x.addEventListener("click", (e) => {
 
                 console.log(e);
-                boton = e.target.parentNode;
+                boton_presionado = e.target.parentNode;
 
                 if (e.target.alt === "🪨") {
-                    boton.style.background = "grey";
-                    boton.disabled = true;
+                    boton_presionado.style.background = "grey";
+                    boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("🪨");
                 } else if (e.target.alt === "📃") {
-                    boton.style.background = "grey";
-                    boton.disabled = true;
+                    boton_presionado.style.background = "grey";
+                    boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("📃");
                 } else if (e.target.alt === "✂️") {
-                    boton.style.background = "grey";
-                    boton.disabled = true;
+                    boton_presionado.style.background = "grey";
+                    boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1("✂️");
                 }
