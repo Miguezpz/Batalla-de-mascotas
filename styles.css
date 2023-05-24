@@ -36,15 +36,21 @@ body {
 
 .titulo {
     margin: 15px 0px 0px 0px;
+    padding: 2px;
     font-size: 34px;
+    border-radius: 10px;
+    border: black 2px solid;
+    background-color: #F8F6F6;
 }
 
 .subtitulo {
     margin: 15px 0px 0px 0px;
+    padding: 2px;
     font-size: 29px;
+    border-radius: 10px;
 }
 
-#caja-mascotas {
+/* #caja-mascotas {
     margin: 15px 0px 0px 0px;
 
     display: flex;
@@ -53,6 +59,14 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap:20px;
+} */
+
+#caja-mascotas {
+    margin: 15px 0px 0px 0px;
+
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr 1fr;
+    gap: 20px;
 }
 
 .input-mascotas {
@@ -68,6 +82,7 @@ body {
     width: 210px;
     height: 210px;
     background-color: #F8F6F6;
+    border-radius: 10px;
 }
 
 .label-mascota img {
@@ -75,6 +90,7 @@ body {
     padding: 0px;
     width: 170px;
     height: 170px;
+    border-radius: 10px;
 }
 
 #boton-seleccionar {
@@ -105,6 +121,7 @@ body {
     width: 90px;
     height: 85px;
     background-color: #fdefc2;
+    border-radius: 10px;
 }
 
 .botones-generados img {
@@ -147,6 +164,7 @@ body {
     grid-template: 1fr / 1fr 1fr 1fr;
     border: solid 2px black;
     background-color: #F8F6F6;
+    border-radius: 10px;
 }
 
 .mascota-seleccionada {
