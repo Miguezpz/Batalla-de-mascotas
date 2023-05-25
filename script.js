@@ -48,9 +48,9 @@ let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
 
-const piedra = {emoji:"🪨", tipo:"piedra", img:"./resources/assets/piedra.png"};
-const papel = {emoji:"📃", tipo:"papel", img:"./resources/assets/papel.png"};
-const tijera = {emoji:"✂️", tipo:"tijera", img:"./resources/assets/tijeras.png"};
+const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
+const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
+const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
 
 //Mascotas
 let mascotas = [];
@@ -177,7 +177,7 @@ function generarBotonesDeAtaque() {
     ataques_P1.forEach(x => {
         botones_ataques_P1 = `
             <button class="botones-generados">
-                <img src="${x.img}" alt="${x.emoji}">   
+                <img src="${x.img}" alt="${x.tipo}">   
             </button>
         `
         caja_botones_ataque.innerHTML += botones_ataques_P1;
@@ -189,21 +189,21 @@ function generarBotonesDeAtaque() {
                 console.log(e);
                 boton_presionado = e.target.parentNode;
 
-                if (e.target.alt === "🪨") {
+                if (e.target.alt === "piedra") {
                     boton_presionado.style.background = "grey";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1("🪨");
-                } else if (e.target.alt === "📃") {
+                    ataqueSeleccionado_P1(e.target.attributes.src.value);
+                } else if (e.target.alt === "papel") {
                     boton_presionado.style.background = "grey";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1("📃");
-                } else if (e.target.alt === "✂️") {
+                    ataqueSeleccionado_P1(e.target.attributes.src.value);
+                } else if (e.target.alt === "tijera") {
                     boton_presionado.style.background = "grey";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1("✂️");
+                    ataqueSeleccionado_P1(e.target.attributes.src.value);
                 }
             })
         })
@@ -221,7 +221,7 @@ function ataqueSeleccionado_P1(x) {
 
     function ataqueAleatorio_CPU () {
         let numero_random = numeroAleatorio(0, ataques_CPU.length - 1);
-        ataques_aleatorios_CPU.push(ataques_CPU[numero_random].emoji);
+        ataques_aleatorios_CPU.push(ataques_CPU[numero_random].img);
         ataques_CPU.splice(numero_random, 1);
     }
 
@@ -233,17 +233,21 @@ function combate() {
 
     if (contador_de_ataques_seleccionados === 5) {
 
+        const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
+        const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
+        const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
+
         for (let i = 0; i < 5; i ++) {
 
-            if (ataques_seleccionados_P1[i] === "🪨" && ataques_aleatorios_CPU[i] === "✂️") {
+            if (ataques_seleccionados_P1[i] === "./resources/assets/piedra.png" && ataques_aleatorios_CPU[i] === "./resources/assets/tijeras.png") {
 
                 victorias_P1 ++;
 
-            } else if (ataques_seleccionados_P1[i] === "✂️" && ataques_aleatorios_CPU[i] === "📃") {
+            } else if (ataques_seleccionados_P1[i] === "./resources/assets/tijeras.png" && ataques_aleatorios_CPU[i] === "./resources/assets/papel.png") {
 
                 victorias_P1 ++;
 
-            } else if (ataques_seleccionados_P1[i] === "📃" && ataques_aleatorios_CPU[i] === "🪨") {
+            } else if (ataques_seleccionados_P1[i] === "./resources/assets/papel.png" && ataques_aleatorios_CPU[i] === "./resources/assets/piedra.png") {
 
                 victorias_P1 ++;
 
@@ -282,8 +286,8 @@ function imprimirAtaques() {
         let parrafo1 = document.createElement("p");
         let parrafo2 = document.createElement("p");
 
-        parrafo1.innerHTML = ataques_seleccionados_P1[i];
-        parrafo2.innerHTML = ataques_aleatorios_CPU[i]; //-- Ajustado a CPU y no a J2.
+        parrafo1.innerHTML = `<img src="${ataques_seleccionados_P1[i]}" class="imagen-ataque-seleccionado">`;
+        parrafo2.innerHTML = `<img src="${ataques_aleatorios_CPU[i]}" class="imagen-ataque-seleccionado">`; //-- Ajustado a CPU y no a J2.
 
         registro_ataques_J1.appendChild(parrafo1);
         registro_ataques_J2_CPU.appendChild(parrafo2);
