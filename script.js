@@ -29,8 +29,8 @@ let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
 let input_radio_oreo;
-let input_radio_kong;
-let input_radio_toby;
+let input_radio_loro;
+let input_radio_güero;
 let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
@@ -57,19 +57,19 @@ let mascotas = [];
 let peluchin = new Batalla_de_mascotas("Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "piedra");
 let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/sazu.jpg", "sazu_id", "piedra");
 let aren = new Batalla_de_mascotas("Aren", "./resources/assets/aren.png", "aren_id", "papel");
-let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/oreo.png", "oreo_id", "papel");
-let kong = new Batalla_de_mascotas("Kong", "./resources/assets/demo.jpg", "kong_id", "tijera");
-let toby = new Batalla_de_mascotas("Toby", "./resources/assets/demo.jpg", "toby_id", "tijera");
+let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/oreo.jpg", "oreo_id", "papel");
+let loro = new Batalla_de_mascotas("Loro", "./resources/assets/loro.jpg", "loro_id", "tijera");
+let güero = new Batalla_de_mascotas("Güero", "./resources/assets/güero.jpg", "güero_id", "tijera");
 
-mascotas.push(peluchin,sazu,aren,oreo,kong,toby);
+mascotas.push(peluchin,sazu,aren,oreo,loro,güero);
 
 //Ataques
 peluchin.ataques.push(piedra, piedra, piedra, papel, tijera);
 sazu.ataques.push(piedra, piedra, piedra, papel, tijera);
 aren.ataques.push(papel, papel, papel, tijera, piedra);
 oreo.ataques.push(papel, papel, papel, tijera, piedra);
-kong.ataques.push(tijera, tijera, tijera, piedra, papel);
-toby.ataques.push(tijera, tijera, tijera, piedra, papel);
+loro.ataques.push(tijera, tijera, tijera, piedra, papel);
+güero.ataques.push(tijera, tijera, tijera, piedra, papel);
 
 // Opciones: Gato Huaniqueo, (guero, mona), kong, regalito, la negra, (bobby, dinky, wanda), hueso, kaiser,
 //claudia gato; pug de arturin;
@@ -92,8 +92,8 @@ function iniciarJuego() {
     input_radio_sazu = document.getElementById("sazu_id");
     input_radio_aren = document.getElementById("aren_id");
     input_radio_oreo = document.getElementById("oreo_id");
-    input_radio_kong = document.getElementById("kong_id");
-    input_radio_toby = document.getElementById("toby_id");
+    input_radio_loro = document.getElementById("loro_id");
+    input_radio_güero = document.getElementById("güero_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
     boton_de_reiniciar.addEventListener("click", _ => location.reload());
@@ -116,12 +116,12 @@ function seleccionarMascota_P1() {
         mascota_P1 = oreo;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
-    } else if (input_radio_kong.checked) {
-        mascota_P1 = kong;
+    } else if (input_radio_loro.checked) {
+        mascota_P1 = loro;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
-    } else if (input_radio_toby.checked) {
-        mascota_P1 = toby;
+    } else if (input_radio_güero.checked) {
+        mascota_P1 = güero;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     }
@@ -190,17 +190,17 @@ function generarBotonesDeAtaque() {
                 boton_presionado = e.target.parentNode;
 
                 if (e.target.alt === "piedra") {
-                    boton_presionado.style.background = "grey";
+                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1(e.target.attributes.src.value);
                 } else if (e.target.alt === "papel") {
-                    boton_presionado.style.background = "grey";
+                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1(e.target.attributes.src.value);
                 } else if (e.target.alt === "tijera") {
-                    boton_presionado.style.background = "grey";
+                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
                     ataqueSeleccionado_P1(e.target.attributes.src.value);

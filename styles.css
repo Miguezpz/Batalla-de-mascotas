@@ -196,8 +196,9 @@ body {
 }
 
 .imagen-ataque-seleccionado {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
+    padding: 1px;
     border-radius: 10px;
     border: black 2px solid;
     background-color: rgba(0, 0, 0, 0.2);
