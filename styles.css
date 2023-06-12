@@ -50,17 +50,6 @@ body {
     border-radius: 10px;
 }
 
-/* #caja-mascotas {
-    margin: 15px 0px 0px 0px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap:20px;
-} */
-
 #caja-mascotas {
     margin: 15px 0px 0px 0px;
 
@@ -69,7 +58,7 @@ body {
     gap: 20px;
 }
 
-.input-mascotas {
+.input-radio-mascotas {
     display: none;
 }
 
@@ -84,6 +73,16 @@ body {
     background-color: #F8F6F6;
     border-radius: 10px;
     border: black 2px solid;
+}
+
+.label-mascota:hover {
+    background-color: rgb(252, 81, 81);
+    color:white;
+}
+
+.input-radio-mascotas:checked + .label-mascota {
+    background-color: rgb(255, 0, 0);
+    color: white;
 }
 
 .label-mascota img {

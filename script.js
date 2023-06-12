@@ -30,7 +30,7 @@ let input_radio_sazu;
 let input_radio_aren;
 let input_radio_oreo;
 let input_radio_loro;
-let input_radio_güero;
+let input_radio_guero;
 let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
@@ -59,9 +59,9 @@ let sazu = new Batalla_de_mascotas("Sazu", "./resources/assets/sazu.jpg", "sazu_
 let aren = new Batalla_de_mascotas("Aren", "./resources/assets/aren.png", "aren_id", "papel");
 let oreo = new Batalla_de_mascotas("Oreo", "./resources/assets/oreo.jpg", "oreo_id", "papel");
 let loro = new Batalla_de_mascotas("Loro", "./resources/assets/loro.jpg", "loro_id", "tijera");
-let güero = new Batalla_de_mascotas("Güero", "./resources/assets/güero.jpg", "güero_id", "tijera");
+let guero = new Batalla_de_mascotas("Güero", "./resources/assets/güero.jpg", "guero_id", "tijera");
 
-mascotas.push(peluchin,sazu,aren,oreo,loro,güero);
+mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 
 //Ataques
 peluchin.ataques.push(piedra, piedra, piedra, papel, tijera);
@@ -69,7 +69,7 @@ sazu.ataques.push(piedra, piedra, piedra, papel, tijera);
 aren.ataques.push(papel, papel, papel, tijera, piedra);
 oreo.ataques.push(papel, papel, papel, tijera, piedra);
 loro.ataques.push(tijera, tijera, tijera, piedra, papel);
-güero.ataques.push(tijera, tijera, tijera, piedra, papel);
+guero.ataques.push(tijera, tijera, tijera, piedra, papel);
 
 // Opciones: Gato Huaniqueo, (guero, mona), kong, regalito, la negra, (bobby, dinky, wanda), hueso, kaiser,
 //claudia gato; pug de arturin;
@@ -82,8 +82,8 @@ function iniciarJuego() {
 
     mascotas.forEach(x => {
         let estructura = `
-            <label for="${x.id}" class="label-mascota"><img src="${x.img}" alt="${x.nombre}">${x.nombre}</label>
-            <input type="radio" id="${x.id}" name="enlace" class="input-mascotas">
+            <input type="radio" id="${x.id}" name="enlace" class="input-radio-mascotas">
+            <label for="${x.id}" class="label-mascota"><img src="${x.img}" alt="${x.nombre}">${x.nombre}</label> 
         `
         div_caja_mascotas.innerHTML += estructura;
     });
@@ -93,7 +93,7 @@ function iniciarJuego() {
     input_radio_aren = document.getElementById("aren_id");
     input_radio_oreo = document.getElementById("oreo_id");
     input_radio_loro = document.getElementById("loro_id");
-    input_radio_güero = document.getElementById("güero_id");
+    input_radio_guero = document.getElementById("guero_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
     boton_de_reiniciar.addEventListener("click", _ => location.reload());
@@ -120,8 +120,8 @@ function seleccionarMascota_P1() {
         mascota_P1 = loro;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
-    } else if (input_radio_güero.checked) {
-        mascota_P1 = güero;
+    } else if (input_radio_guero.checked) {
+        mascota_P1 = guero;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
         seleccionarMascota_CPU()
     }
@@ -184,7 +184,7 @@ function generarBotonesDeAtaque() {
         botones_por_su_class = document.querySelectorAll(".botones-generados img");
 
         botones_por_su_class.forEach(x => {
-            x.addEventListener("click", (e) => {
+            x.parentNode.addEventListener("click", (e) => {
 
                 console.log(e);
                 boton_presionado = e.target.parentNode;
