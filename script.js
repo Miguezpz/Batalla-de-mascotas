@@ -9,6 +9,7 @@ class Batalla_de_mascotas {
 }
 
 const section_1 = document.getElementById("section_1");
+const section_mapa = document.getElementById("ver-mapa");
 const section_2 = document.getElementById("section_2");
 const section_3 = document.getElementById("section_3");
 const section_4 = document.getElementById("section_4");
@@ -25,6 +26,7 @@ const div_img_mascota_J1 = document.getElementById("img-J1");
 const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 const div_victorias_J1 = document.getElementById("victorias-J1");
 const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
+const mapa = document.getElementById("mapa");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -47,6 +49,7 @@ let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
+let lienzo = mapa.getContext("2d");
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
@@ -78,7 +81,7 @@ guero.ataques.push(tijera, tijera, tijera, piedra, papel);
 //-----------------------------------------------------------------------------------------------------------------
 function iniciarJuego() {
 
-    secciones("flex", "none", "none", "none");
+    secciones("flex", "none", "none", "none", "none");
 
     mascotas.forEach(x => {
         let estructura = `
@@ -132,9 +135,10 @@ function numeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function secciones(uno,dos,tres,cuatro) {
+function secciones(uno,canvas,dos,tres,cuatro) {
 
     section_1.style.display = uno;
+    section_mapa.style.display = canvas;
     section_2.style.display = dos;
     section_3.style.display = tres;
     section_4.style.display = cuatro;
@@ -151,7 +155,8 @@ function seleccionarMascota_CPU() {
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
     mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
-    secciones("none", "flex", "none", "flex");
+    /* secciones("none", "none", "flex", "none", "flex"); */
+    secciones("none", "flex", "none", "none");
     generarImagenesDeMascotas();
     generarBotonesDeAtaque();
 }
@@ -269,7 +274,7 @@ function combate() {
         }
 
         mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
-        secciones("none", "flex", "flex", "flex");
+        secciones("none", "none", "flex", "flex", "flex");
     }
 }
 

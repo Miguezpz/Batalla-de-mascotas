@@ -97,6 +97,21 @@ body {
     margin: 15px 0px 0px 0px;
 }
 
+
+/* Seccion 2 _________________________________________________________________________*/
+
+#ver-mapa {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#mapa {
+    border: 2px black solid;
+    margin-top: 30px;
+}
 /* Seccion 2 _________________________________________________________________________*/
 
 #section_2 {
