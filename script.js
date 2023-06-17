@@ -103,6 +103,12 @@ function iniciarJuego() {
 };
 
 function seleccionarMascota_P1() {
+
+    lienzo.fillRect(5,15,20,40);
+    let imagen1 = new Image();
+    imagen1.src = peluchin.img;
+    lienzo.drawImage(imagen1, 20, 40, 100, 100);
+
     if (input_radio_peluchin.checked) {
         mascota_P1 = peluchin;
         div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
