@@ -5,6 +5,12 @@ class Batalla_de_mascotas {
         this.id = id;
         this.especialidad = especialidad;
         this.ataques = [];
+        this.x = 20;
+        this.y = 30;
+        this.ancho = 80;
+        this.alto = 80;
+        this.mapaFoto = new Image();
+        this.mapaFoto.src = img;
     }
 }
 
@@ -103,11 +109,6 @@ function iniciarJuego() {
 };
 
 function seleccionarMascota_P1() {
-
-    lienzo.fillRect(5,15,20,40);
-    let imagen1 = new Image();
-    imagen1.src = peluchin.img;
-    lienzo.drawImage(imagen1, 20, 40, 100, 100);
 
     if (input_radio_peluchin.checked) {
         mascota_P1 = peluchin;
@@ -304,6 +305,25 @@ function imprimirAtaques() {
         registro_ataques_J2_CPU.appendChild(parrafo2);
     };
 };
+
+function pintarPersonaje() {
+
+    lienzo.clearRect(0, 0, mapa.width, mapa.height);
+
+    lienzo.drawImage(
+        peluchin.mapaFoto, 
+        peluchin.x, 
+        peluchin.y, 
+        peluchin.ancho, 
+        peluchin.alto
+    );
+}
+
+function moverMascota() {
+    peluchin.x = peluchin.x + 5;
+    pintarPersonaje();
+}
+//reto: hacer que se mueva para la izquierda, arriba y abajo
 
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
