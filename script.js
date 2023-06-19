@@ -5,10 +5,11 @@ class Batalla_de_mascotas {
         this.id = id;
         this.especialidad = especialidad;
         this.ataques = [];
-        this.x = 20;
-        this.y = 30;
-        this.ancho = 80;
-        this.alto = 80;
+
+        this.x = 100;
+        this.y = 50;
+        this.ancho = 40;
+        this.alto = 40;
         this.mapaFoto = new Image();
         this.mapaFoto.src = img;
     }
@@ -306,24 +307,40 @@ function imprimirAtaques() {
     };
 };
 
+//Canvas; Es el mapa en el que se desplaza la mascota seleccionada
 function pintarPersonaje() {
 
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
 
     lienzo.drawImage(
-        peluchin.mapaFoto, 
-        peluchin.x, 
-        peluchin.y, 
-        peluchin.ancho, 
-        peluchin.alto
+        mascota_P1.mapaFoto, 
+        mascota_P1.x, 
+        mascota_P1.y, 
+        mascota_P1.ancho, 
+        mascota_P1.alto
     );
 }
 
-function moverMascota() {
-    peluchin.x = peluchin.x + 5;
+// Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
+function moverMascota_derecha() {
+    mascota_P1.x = mascota_P1.x + 5;
     pintarPersonaje();
 }
-//reto: hacer que se mueva para la izquierda, arriba y abajo
+
+function moverMascota_izquierda() {
+    mascota_P1.x = mascota_P1.x - 5;
+    pintarPersonaje();
+}
+
+function moverMascota_abajo() {
+    mascota_P1.y = mascota_P1.y + 5;
+    pintarPersonaje();
+}
+
+function moverMascota_arriba() {
+    mascota_P1.y = mascota_P1.y - 5;
+    pintarPersonaje();
+}
 
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);

@@ -111,6 +111,37 @@ body {
 #mapa {
     border: 2px black solid;
     margin-top: 30px;
+    width: 800px;
+    height: 400px;
+}
+
+.botones-canvas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja-botones-direccionales {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
+    margin-top: 15px;
+}
+
+.direccional_arriba-abajo {
+    display: flex;
+    flex-direction: column;
+    width: 20px;
+    height: 20px;
+}
+
+.caja-up-down {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr;
+}
+.left-right {
+    width: 40px;
+    height: 40px;
 }
 /* Seccion 2 _________________________________________________________________________*/
 
