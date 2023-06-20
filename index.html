@@ -18,16 +18,20 @@
         <!--         Mapa         ---------------------------------------------->
         <section id="ver-mapa">
             <h1 class="titulo">¡Recorre el mapa con tu mascota!</h1>
-            <canvas id="mapa"></canvas>
+            <canvas id="mapa" width="1000px" height="450px"></canvas>
 
             <div class="botones-canvas">
                 <div class="caja-botones-direccionales">
-                    <button onClick="moverMascota_izquierda()" class="left-right">⇦</button>
+                    <button onmousedown="moverIzquierda()" onmouseup="detenerMovimiento()" class="left-right">
+                        ⇦</button>
                     <div class="caja-up-down">
-                        <button onClick="moverMascota_arriba()" class="up-down">⇧</button>
-                        <button onClick="moverMascota_abajo()" class="up-down">⇩</button>
+                        <button onmousedown="moverArriba()" onmouseup="detenerMovimiento()" class="up-down">
+                            ⇧</button>
+                        <button onmousedown="moverAbajo()" onmouseup="detenerMovimiento()" class="up-down">
+                            ⇩</button>
                     </div>
-                    <button onClick="moverMascota_derecha()" class="left-right">⇨</button>
+                    <button onmousedown="moverDerecha()" onmouseup="detenerMovimiento()" class="left-right">
+                        ⇨</button>
                 </div>
             </div>
         </section>

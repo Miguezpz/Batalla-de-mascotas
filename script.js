@@ -6,12 +6,14 @@ class Batalla_de_mascotas {
         this.especialidad = especialidad;
         this.ataques = [];
 
-        this.x = 100;
-        this.y = 50;
-        this.ancho = 40;
-        this.alto = 40;
+        this.x = 20;
+        this.y = 40;
+        this.ancho = 200;
+        this.alto = 200;
         this.mapaFoto = new Image();
         this.mapaFoto.src = img;
+        this.velocidad_X = 0;
+        this.velocidad_Y = 0;
     }
 }
 
@@ -57,6 +59,7 @@ let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
 let lienzo = mapa.getContext("2d");
+let intervalo;
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
@@ -159,12 +162,17 @@ function mostrarVictorias(text1, text2) {
 
 function seleccionarMascota_CPU() {
 
+    /* secciones("none", "none", "flex", "none", "flex"); */
+    secciones("none", "flex", "none", "none", "none");
+    intervalo = setInterval(pintarPersonaje, 50);
+
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
+
     mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
-    /* secciones("none", "none", "flex", "none", "flex"); */
-    secciones("none", "flex", "none", "none");
+    
+    
     generarImagenesDeMascotas();
     generarBotonesDeAtaque();
 }
@@ -310,6 +318,9 @@ function imprimirAtaques() {
 //Canvas; Es el mapa en el que se desplaza la mascota seleccionada
 function pintarPersonaje() {
 
+    mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
+    mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
+
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
 
     lienzo.drawImage(
@@ -322,25 +333,25 @@ function pintarPersonaje() {
 }
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
-function moverMascota_derecha() {
-    mascota_P1.x = mascota_P1.x + 5;
-    pintarPersonaje();
+function moverDerecha() {
+    mascota_P1.velocidad_X = 20;
 }
 
-function moverMascota_izquierda() {
-    mascota_P1.x = mascota_P1.x - 5;
-    pintarPersonaje();
+function moverIzquierda() {
+    mascota_P1.velocidad_X = -20;
 }
 
-function moverMascota_abajo() {
-    mascota_P1.y = mascota_P1.y + 5;
-    pintarPersonaje();
+function moverAbajo() {
+    mascota_P1.velocidad_Y = 20;
 }
 
-function moverMascota_arriba() {
-    mascota_P1.y = mascota_P1.y - 5;
-    pintarPersonaje();
+function moverArriba() {
+    mascota_P1.velocidad_Y = -20;
 }
 
+function detenerMovimiento() {
+    mascota_P1.velocidad_X = 0;
+    mascota_P1.velocidad_Y = 0;
+}
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);

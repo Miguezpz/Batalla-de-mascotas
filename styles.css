@@ -1,18 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
 
-/* 
-    negro: #2A363B
-    rojo: #CF4647
-    amarilo: #F5D061
-    blanco: #F8F6F6
-
-
-    piel: #FFF7D4
-    amarillo: #FFD95A
-    naranja: #C07F00
-    marron: #4C3D3D
-*/
-
 * {
     margin:0px;
     padding: 0px;
@@ -111,8 +98,6 @@ body {
 #mapa {
     border: 2px black solid;
     margin-top: 30px;
-    width: 800px;
-    height: 400px;
 }
 
 .botones-canvas {
