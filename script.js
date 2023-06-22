@@ -8,8 +8,8 @@ class Batalla_de_mascotas {
 
         this.x = 20;
         this.y = 40;
-        this.ancho = 200;
-        this.alto = 200;
+        this.ancho = 100;
+        this.alto = 100;
         this.mapaFoto = new Image();
         this.mapaFoto.src = img;
         this.velocidad_X = 0;
@@ -164,7 +164,10 @@ function seleccionarMascota_CPU() {
 
     /* secciones("none", "none", "flex", "none", "flex"); */
     secciones("none", "flex", "none", "none", "none");
+    
     intervalo = setInterval(pintarPersonaje, 50);
+    window.addEventListener("keydown", moverConTeclas);
+    window.addEventListener("keyup", detenerMovimientoTeclas);
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
@@ -352,6 +355,41 @@ function moverArriba() {
 function detenerMovimiento() {
     mascota_P1.velocidad_X = 0;
     mascota_P1.velocidad_Y = 0;
+}
+
+function moverConTeclas(evento) {
+
+    switch(evento.key) {
+        case "ArrowUp":
+            moverArriba();
+            break;
+        case "ArrowDown":
+            moverAbajo();
+            break;
+        case "ArrowLeft":
+            moverIzquierda();
+            break;
+        case "ArrowRight":
+            moverDerecha();
+            break;
+    }
+}
+
+function detenerMovimientoTeclas(evento) {
+    switch(evento.key) {
+        case "ArrowUp":
+            detenerMovimiento();
+            break;
+        case "ArrowDown":
+            detenerMovimiento();
+            break;
+        case "ArrowLeft":
+            detenerMovimiento();
+            break;
+        case "ArrowRight":
+            detenerMovimiento();
+            break;
+    }
 }
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
