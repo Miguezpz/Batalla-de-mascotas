@@ -8,8 +8,8 @@ class Batalla_de_mascotas {
 
         this.x = 20;
         this.y = 40;
-        this.ancho = 100;
-        this.alto = 100;
+        this.ancho = 80;
+        this.alto = 80;
         this.mapaFoto = new Image();
         this.mapaFoto.src = img;
         this.velocidad_X = 0;
@@ -60,6 +60,8 @@ let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
 let lienzo = mapa.getContext("2d");
 let intervalo;
+let mapa_background = new Image();
+mapa_background.src = "./resources/assets/mokemap.png";
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
@@ -164,18 +166,13 @@ function seleccionarMascota_CPU() {
 
     /* secciones("none", "none", "flex", "none", "flex"); */
     secciones("none", "flex", "none", "none", "none");
-    
-    intervalo = setInterval(pintarPersonaje, 50);
-    window.addEventListener("keydown", moverConTeclas);
-    window.addEventListener("keyup", detenerMovimientoTeclas);
+    iniciarMapa();
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
 
     mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
-    
-    
     generarImagenesDeMascotas();
     generarBotonesDeAtaque();
 }
@@ -319,12 +316,27 @@ function imprimirAtaques() {
 };
 
 //Canvas; Es el mapa en el que se desplaza la mascota seleccionada
-function pintarPersonaje() {
 
+function iniciarMapa() {
+    intervalo = setInterval(pintarCanvas, 50);
+    window.addEventListener("keydown", moverConTeclas);
+    window.addEventListener("keyup", detenerMovimientoTeclas);
+}
+
+function pintarCanvas() {
+    
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
     mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
 
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
+
+    lienzo.drawImage(
+        mapa_background,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )
 
     lienzo.drawImage(
         mascota_P1.mapaFoto, 
@@ -391,5 +403,7 @@ function detenerMovimientoTeclas(evento) {
             break;
     }
 }
+
+
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);

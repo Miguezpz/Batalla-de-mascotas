@@ -63,12 +63,12 @@ body {
 }
 
 .label-mascota:hover {
-    background-color: rgb(252, 81, 81);
+    background-color: rgb(255, 184, 112);
     color:white;
 }
 
 .input-radio-mascotas:checked + .label-mascota {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(255, 133, 62);
     color: white;
 }
 
@@ -97,6 +97,7 @@ body {
 
 #mapa {
     border: 2px black solid;
+    border-radius: 10px;
     margin-top: 30px;
 }
 
