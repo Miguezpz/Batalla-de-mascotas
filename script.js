@@ -5,8 +5,8 @@ class Batalla_de_mascotas {
         this.id = id;
         this.ataques = [];
 
-        this.x = 20;
-        this.y = 30;
+        this.x = x;
+        this.y = y;
         this.ancho = 80;
         this.alto = 80;
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
@@ -15,6 +15,17 @@ class Batalla_de_mascotas {
         this.velocidad_Y = 0;
         this.cabezaFoto = new Image(); //Imagenes Platzi
         this.cabezaFoto.src = img_head; //Imagenes Platzi
+    }
+
+    pintarMascota() {
+
+        lienzo.drawImage(
+            this.cabezaFoto, 
+            this.x, 
+            this.y, 
+            this.ancho, 
+            this.alto
+        );
     }
 }
 
@@ -77,11 +88,25 @@ let sazu = new Batalla_de_mascotas(
 let aren = new Batalla_de_mascotas(
     "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png");
 let oreo = new Batalla_de_mascotas(
-    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/capipepo_cabeza.png");
+    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png");
 let loro = new Batalla_de_mascotas(
-    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/hipodoge_cabeza.png");
+    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png");
 let guero = new Batalla_de_mascotas(
-    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/ratigueya_cabeza.png");
+    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png");
+
+//Mascotas Enemigas
+let enemigo_peluchin = new Batalla_de_mascotas(
+    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png", 200, 200);
+let enemigo_sazu = new Batalla_de_mascotas(
+    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png", 20, 50);
+let enemigo_aren = new Batalla_de_mascotas(
+    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png", 400, 30);
+let enemigo_oreo = new Batalla_de_mascotas(
+    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png", 650, 350);
+let enemigo_loro = new Batalla_de_mascotas(
+    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png", 700, 60);
+let enemigo_guero = new Batalla_de_mascotas(
+    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png", 370, 200);
 
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 
@@ -345,13 +370,13 @@ function pintarCanvas() {
         mapa.height
     )
 
-    lienzo.drawImage(
-        mascota_P1.cabezaFoto, 
-        mascota_P1.x, 
-        mascota_P1.y, 
-        mascota_P1.ancho, 
-        mascota_P1.alto
-    );
+    mascota_P1.pintarMascota(); //Nuevo
+    enemigo_aren.pintarMascota();
+    enemigo_guero.pintarMascota();
+    enemigo_loro.pintarMascota();
+    enemigo_oreo.pintarMascota();
+    enemigo_peluchin.pintarMascota();
+    enemigo_sazu.pintarMascota();
 }
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
