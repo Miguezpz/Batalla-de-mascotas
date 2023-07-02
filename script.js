@@ -1,5 +1,5 @@
 class Batalla_de_mascotas {
-    constructor(nombre, img, id, img_head, x = 20, y = 300) {
+    constructor(nombre, img, id, img_head, x = 10, y = 165) {
         this.nombre = nombre;
         this.img = img;
         this.id = id;
@@ -97,17 +97,17 @@ let guero = new Batalla_de_mascotas(
 
 //Mascotas Enemigas
 let enemigo_peluchin = new Batalla_de_mascotas(
-    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png", 200, 200);
+    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png", 300, 140);
 let enemigo_sazu = new Batalla_de_mascotas(
-    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png", 20, 50);
+    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png", 155, 330);
 let enemigo_aren = new Batalla_de_mascotas(
-    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png", 400, 30);
+    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png", 630, 30);
 let enemigo_oreo = new Batalla_de_mascotas(
-    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png", 650, 350);
+    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png", 680, 310);
 let enemigo_loro = new Batalla_de_mascotas(
-    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png", 700, 60);
+    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png", 100, 60);
 let enemigo_guero = new Batalla_de_mascotas(
-    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png", 370, 200);
+    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png", 489, 240);
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
@@ -370,14 +370,21 @@ function pintarCanvas() {
         0,
         mapa.width,
         mapa.height
-    )
+    );
 
     mascota_P1.pintarMascota(); //Nuevo
 
     mascotas_enemigas.forEach(enemigo => {
         enemigo.pintarMascota();
-    })
-}
+    });
+
+    if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
+        
+        mascotas_enemigas.forEach(enemigo => {
+            detectarColision(enemigo, mascota_P1);
+        });
+    };
+};
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
 function moverDerecha() {
@@ -452,5 +459,28 @@ function removerObjetoDeArray_mascotas_enemigas(seleccion) {
     }
 }
 
+function detectarColision(enemigo, jugador) {
+
+    const enemigoDerecha = enemigo.x + 40;
+    const enemigoIzquierda = enemigo.x;
+    const enemigoAbajo = enemigo.y + 40;
+    const enemigoArriba = enemigo.y;
+
+    const jugadorDerecha = jugador.x + 40;
+    const jugadorIzquierda = jugador.x;
+    const jugadorAbajo = jugador.y + 40;
+    const jugadorArriba = jugador.y;
+
+    if(
+        jugadorIzquierda > enemigoDerecha ||
+        jugadorDerecha < enemigoIzquierda ||
+        jugadorArriba > enemigoAbajo ||
+        jugadorAbajo < enemigoArriba
+    ) {
+        return;
+    };
+
+    alert(enemigo.nombre + " te ha atacado.");
+}
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
