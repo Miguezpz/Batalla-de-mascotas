@@ -1,5 +1,5 @@
 class Batalla_de_mascotas {
-    constructor(nombre, img, id, img_head, x = 10, y = 10) {
+    constructor(nombre, img, id, img_head, x = 20, y = 300) {
         this.nombre = nombre;
         this.img = img;
         this.id = id;
@@ -48,6 +48,9 @@ const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 const div_victorias_J1 = document.getElementById("victorias-J1");
 const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
 const mapa = document.getElementById("mapa");
+const lienzo = mapa.getContext("2d");
+const mapa_background = new Image();
+mapa_background.src = "./resources/assets/mokemap.png";
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -70,17 +73,15 @@ let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
-let lienzo = mapa.getContext("2d");
 let intervalo;
-let mapa_background = new Image();
-mapa_background.src = "./resources/assets/mokemap.png";
+let mascotas = [];
+let mascotas_enemigas = [];
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
 const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
 
 //Mascotas
-let mascotas = [];
 let peluchin = new Batalla_de_mascotas(
     "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png");
 let sazu = new Batalla_de_mascotas(
@@ -107,8 +108,9 @@ let enemigo_loro = new Batalla_de_mascotas(
     "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png", 700, 60);
 let enemigo_guero = new Batalla_de_mascotas(
     "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png", 370, 200);
-
+    
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
+mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
 
 //Ataques
 peluchin.ataques.push(piedra, piedra, piedra, papel, tijera);
@@ -198,6 +200,7 @@ function seleccionarMascota_CPU() {
 
     /* secciones("none", "none", "flex", "none", "flex"); */
     secciones("none", "flex", "none", "none", "none");
+    removerObjetoDeArray_mascotas_enemigas(mascota_P1);
     iniciarMapa();
 
     mascota_CPU = mascotas[numeroAleatorio(0, mascotas.length - 1)];
@@ -348,7 +351,6 @@ function imprimirAtaques() {
 };
 
 //Canvas; Es el mapa en el que se desplaza la mascota seleccionada
-
 function iniciarMapa() {
     intervalo = setInterval(pintarCanvas, 50);
     window.addEventListener("keydown", moverConTeclas);
@@ -371,12 +373,10 @@ function pintarCanvas() {
     )
 
     mascota_P1.pintarMascota(); //Nuevo
-    enemigo_aren.pintarMascota();
-    enemigo_guero.pintarMascota();
-    enemigo_loro.pintarMascota();
-    enemigo_oreo.pintarMascota();
-    enemigo_peluchin.pintarMascota();
-    enemigo_sazu.pintarMascota();
+
+    mascotas_enemigas.forEach(enemigo => {
+        enemigo.pintarMascota();
+    })
 }
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
@@ -401,41 +401,56 @@ function detenerMovimiento() {
     mascota_P1.velocidad_Y = 0;
 }
 
-function moverConTeclas(evento) {
+function moverConTeclas(e) {
 
-    switch(evento.key) {
-        case "ArrowUp":
-            moverArriba();
-            break;
-        case "ArrowDown":
-            moverAbajo();
-            break;
-        case "ArrowLeft":
-            moverIzquierda();
-            break;
-        case "ArrowRight":
-            moverDerecha();
-            break;
+    if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
+        moverDerecha();
+
+    } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
+        moverIzquierda();
+
+    } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
+        moverAbajo();
+
+    } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
+        moverArriba();
+
     }
 }
 
-function detenerMovimientoTeclas(evento) {
-    switch(evento.key) {
-        case "ArrowUp":
-            detenerMovimiento();
-            break;
-        case "ArrowDown":
-            detenerMovimiento();
-            break;
-        case "ArrowLeft":
-            detenerMovimiento();
-            break;
-        case "ArrowRight":
-            detenerMovimiento();
-            break;
+function detenerMovimientoTeclas(e) {
+
+    if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
+        detenerMovimiento();
+
+    } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
+        detenerMovimiento();
+
+    } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
+        detenerMovimiento();
+
+    } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
+        detenerMovimiento();
+        
     }
 }
 
+function removerObjetoDeArray_mascotas_enemigas(seleccion) {
+    
+    if(seleccion === peluchin) {
+        mascotas_enemigas.splice(0, 1);
+    } else if(seleccion === sazu) {
+        mascotas_enemigas.splice(1, 1);
+    } else if(seleccion === aren) {
+        mascotas_enemigas.splice(2, 1);
+    } else if(seleccion === oreo) {
+        mascotas_enemigas.splice(3, 1);
+    } else if(seleccion === loro) {
+        mascotas_enemigas.splice(4, 1);
+    } else if(seleccion === guero) {
+        mascotas_enemigas.splice(5, 1);
+    }
+}
 
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
