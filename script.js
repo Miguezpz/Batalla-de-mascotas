@@ -332,11 +332,11 @@ function combate() {
         };
 
         if (victorias_P1 > victorias_CPU) {
-            resultadoCombate("Ganaste");
+            resultadoCombate("🍕¡Ganaste!🍕");
         } else if (victorias_P1 < victorias_CPU) {
-            resultadoCombate("Perdiste");
+            resultadoCombate("Perdiste😪");
         } else if (victorias_P1 === victorias_CPU) {
-            resultadoCombate("Empate");
+            resultadoCombate("Empate🦧");
         }
 
         mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
