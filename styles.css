@@ -204,8 +204,8 @@ body {
 }
 
 .mascota-seleccionada {
-    width: 200px;
-    height: 200px;
+    width: 229px;
+    height: 229px;
 }
 
 .ataques-seleccionados {
@@ -230,6 +230,11 @@ body {
     background-color: black;
     color:white;
     border-radius: 10px;
+}
+
+.ataques {
+    width:auto;
+    height:auto;
 }
 
 .imagen-ataque-seleccionado {
