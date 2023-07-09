@@ -360,6 +360,9 @@ function imprimirAtaques() {
         parrafo1.innerHTML = `<img src="${ataques_seleccionados_P1[i]}" class="imagen-ataque-seleccionado">`;
         parrafo2.innerHTML = `<img src="${ataques_aleatorios_CPU[i]}" class="imagen-ataque-seleccionado">`; //-- Ajustado a CPU y no a J2.
 
+        parrafo1.classList.add("cuadro-ataque-seleccionado");
+        parrafo2.classList.add("cuadro-ataque-seleccionado");
+
         registro_ataques_J1.appendChild(parrafo1);
         registro_ataques_J2_CPU.appendChild(parrafo2);
     };
