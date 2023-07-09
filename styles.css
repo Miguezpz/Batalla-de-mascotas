@@ -210,6 +210,12 @@ body {
     height: 219px;
 }
 
+.cuadro-ataque-seleccionado {
+    width:38px;
+    height:38px;
+    margin-bottom: 4px;
+}
+
 .ataques-seleccionados {
     display:flex;
     flex-direction: row;
@@ -234,11 +240,6 @@ body {
     border-radius: 10px;
 }
 
-.cuadro-ataque-seleccionado {
-    width:38px;
-    height:38px;
-    margin-bottom: 4px;
-}
 
 .imagen-ataque-seleccionado {
     width: 32px;
