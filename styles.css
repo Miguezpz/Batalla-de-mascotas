@@ -249,3 +249,10 @@ body {
     border: black 2px solid;
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+@media (max-width: 300px) {
+    
+    body {
+        background-color: black;
+    }
+}
