@@ -294,3 +294,47 @@ body {
         margin-top: 35px;
     }
 }
+/* --------------------------------------- */
+@media (max-width: 200px) {
+    #section_1 {
+        width: auto;
+        height: auto;
+    }
+
+    .titulo {
+        margin-top: 60px;
+        width: 177px;
+        height: 18px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .subtitulo {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    #caja-mascotas {
+        margin-top: 40px;
+        width: auto;
+        height: auto;
+        gap: 5px;
+        grid-template: 57px 57px / 57px 57px 57px;
+    }
+
+    .label-mascota {
+        width: auto;
+        height: auto;
+        font-size: 6px;
+    }
+
+    .label-mascota img{
+        width: 40px;
+        height: 40px;
+    }
+
+    #boton-seleccionar {
+        margin-top: 35px;
+    }
+}
