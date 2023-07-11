@@ -249,10 +249,48 @@ body {
     border: black 2px solid;
     background-color: rgba(0, 0, 0, 0.2);
 }
-
-@media (max-width: 300px) {
+/* ___________________________________________________________________________________________________________________ */
+@media (max-width: 1200px) {
     
-    body {
-        background-color: black;
+    #section_1 {
+        width: auto;
+        height: auto;
+    }
+
+    .titulo {
+        margin-top: 60px;
+        width: 319px;
+        height: 33px;
+        text-align: center;
+        font-size: 27px;
+    }
+
+    .subtitulo {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 23px;
+    }
+
+    #caja-mascotas {
+        margin-top: 40px;
+        width: auto;
+        height: auto;
+        gap: 10px;
+        grid-template: 110px 110px / 110px 110px 110px;
+    }
+
+    .label-mascota {
+        width: auto;
+        height: auto;
+        font-size: 10px;
+    }
+
+    .label-mascota img{
+        width: 85px;
+        height: 85px;
+    }
+
+    #boton-seleccionar {
+        margin-top: 35px;
     }
 }
