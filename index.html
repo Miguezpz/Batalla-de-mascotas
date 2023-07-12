@@ -21,17 +21,23 @@
             <canvas id="mapa" width="800px" height="440px"></canvas>
 
             <div class="botones-canvas">
+
                 <div class="caja-botones-direccionales">
-                    <button onmousedown="moverIzquierda()" onmouseup="detenerMovimiento()" class="left-right">
-                        ⇦</button>
+
+                    <button onmousedown="moverIzquierda()" onmouseup="detenerMovimiento()" ontouchstart="moverIzquierda()" 
+                    ontouchend="detenerMovimiento()" class="left-right">⇦</button>
+
                     <div class="caja-up-down">
-                        <button onmousedown="moverArriba()" onmouseup="detenerMovimiento()" onkeydown="moverArriba()" onkeyup="detenerMovimiento()" class="up-down">
-                            ⇧</button>
-                        <button onmousedown="moverAbajo()" onmouseup="detenerMovimiento()" class="up-down">
-                            ⇩</button>
+
+                        <button onmousedown="moverArriba()" onmouseup="detenerMovimiento()" ontouchstart="moverArriba()"
+                        ontouchend="detenerMovimiento()" class="up-down">⇧</button>
+
+                        <button onmousedown="moverAbajo()" onmouseup="detenerMovimiento()" ontouchstart="moverAbajo()"
+                        ontouchend="detenerMovimiento()" class="up-down">⇩</button>
                     </div>
-                    <button onmousedown="moverDerecha()" onmouseup="detenerMovimiento()" class="left-right">
-                        ⇨</button>
+
+                    <button onmousedown="moverDerecha()" onmouseup="detenerMovimiento()" ontouchstart="moverDerecha()" 
+                    ontouchend="detenerMovimiento()" class="left-right">⇨</button>
                 </div>
             </div>
         </section>
