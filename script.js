@@ -76,6 +76,19 @@ let boton_presionado;
 let intervalo;
 let mascotas = [];
 let mascotas_enemigas = [];
+let alturaQueBuscamos;
+let anchoDelMapa = window.innerWidth - 90;
+alturaQueBuscamos = anchoDelMapa * 440 / 800;
+
+if (anchoDelMapa > 800) {
+    anchoDelMapa = 800;
+}
+if (alturaQueBuscamos > 440) {
+    alturaQueBuscamos = 440;
+}
+
+mapa.width = anchoDelMapa;
+mapa.height = alturaQueBuscamos;
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
