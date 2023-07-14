@@ -384,7 +384,6 @@ function imprimirAtaques() {
 
 //Canvas; Es el mapa en el que se desplaza la mascota seleccionada
 function iniciarMapa() {
-    lienzo.imageSmoothingEnabled = false;
     intervalo = setInterval(pintarCanvas, 50);
     window.addEventListener("keydown", moverConTeclas);
     window.addEventListener("keyup", detenerMovimientoTeclas);
