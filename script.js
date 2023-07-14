@@ -7,8 +7,8 @@ class Batalla_de_mascotas {
 
         this.x = x;
         this.y = y;
-        this.ancho = 80;
-        this.alto = 80;
+        this.ancho = 40;
+        this.alto = 40;
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
         this.mapaFoto.src = img; //Imagenes Originales de las mascotas
         this.velocidad_X = 0;
@@ -76,17 +76,16 @@ let boton_presionado;
 let intervalo;
 let mascotas = [];
 let mascotas_enemigas = [];
+
 let alturaQueBuscamos;
 let anchoDelMapa = window.innerWidth - 90;
-alturaQueBuscamos = anchoDelMapa * 440 / 800;
+const anchoMaximoDelMapa = 500;
 
-if (anchoDelMapa > 800) {
-    anchoDelMapa = 800;
-}
-if (alturaQueBuscamos > 440) {
-    alturaQueBuscamos = 440;
+if (anchoDelMapa > anchoMaximoDelMapa) {
+    anchoDelMapa = anchoMaximoDelMapa - 20;
 }
 
+alturaQueBuscamos = anchoDelMapa * 700 / 800;
 mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
 
