@@ -89,8 +89,7 @@ if (anchoDelMapa > anchoMaximoDelMapa) {
 alturaQueBuscamos = anchoDelMapa * 700 / 800;
 mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
-
-let size_img_mascota = mapa.width * 50 / 500;
+let size_img_mascota = mapa.width * 60 / 500;
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
