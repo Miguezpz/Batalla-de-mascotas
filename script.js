@@ -6,7 +6,7 @@ class Batalla_de_mascotas {
         this.ataques = [];
 
         this.ancho = mapa.width * 50 / 500;
-        this.alto = mapa.width * 50 / 500;
+        this.alto = this.ancho;
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
         
