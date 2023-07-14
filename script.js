@@ -5,10 +5,11 @@ class Batalla_de_mascotas {
         this.id = id;
         this.ataques = [];
 
-        this.x = x;
-        this.y = y;
-        this.ancho = 40;
-        this.alto = 40;
+        this.ancho = mapa.width * 50 / 500;
+        this.alto = mapa.width * 50 / 500;
+        this.x = numeroAleatorio(0, mapa.width - this.ancho);
+        this.y = numeroAleatorio(0, mapa.height - this.alto);
+        
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
         this.mapaFoto.src = img; //Imagenes Originales de las mascotas
         this.velocidad_X = 0;
@@ -79,7 +80,7 @@ let mascotas_enemigas = [];
 
 let alturaQueBuscamos;
 let anchoDelMapa = window.innerWidth - 90;
-const anchoMaximoDelMapa = 500;
+const anchoMaximoDelMapa = 480;
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
     anchoDelMapa = anchoMaximoDelMapa - 20;
