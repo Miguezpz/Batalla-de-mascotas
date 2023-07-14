@@ -1,5 +1,3 @@
-
-
 const section_1 = document.getElementById("section_1");
 const section_mapa = document.getElementById("ver-mapa");
 const section_2 = document.getElementById("section_2");
@@ -61,8 +59,11 @@ mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
 let size_img_mascota = mapa.width * 60 / 500;
 
+// Clase--------------------------------------------------------------
 class Batalla_de_mascotas {
+
     constructor(nombre, img, id, img_head) {
+
         this.nombre = nombre;
         this.img = img;
         this.id = id;
@@ -495,14 +496,14 @@ function removerObjetoDeArray_mascotas_enemigas(seleccion) {
 
 function detectarColision(enemigo, jugador) {
 
-    const enemigoDerecha = enemigo.x + 40;
+    const enemigoDerecha = enemigo.x + enemigo.ancho;
     const enemigoIzquierda = enemigo.x;
-    const enemigoAbajo = enemigo.y + 40;
+    const enemigoAbajo = enemigo.y + enemigo.alto;
     const enemigoArriba = enemigo.y;
 
-    const jugadorDerecha = jugador.x + 40;
+    const jugadorDerecha = jugador.x + jugador.ancho;
     const jugadorIzquierda = jugador.x;
-    const jugadorAbajo = jugador.y + 40;
+    const jugadorAbajo = jugador.y + jugador.alto;
     const jugadorArriba = jugador.y;
 
     if(
@@ -542,6 +543,32 @@ function detectarEnemigoSeleccionadoCanvas(enemigo) {
     };
 };
 
+function evitarColision(enemigo, jugador) {
 
+    let enemigoIzquierda = enemigo.x;
+    let enemigoDerecha = enemigo.x + enemigo.ancho;
+    let enemigoArriba = enemigo.y;
+    let enemigoAbajo = enemigo.y + enemigo.alto;
+    
+    let jugadorIzquierda = jugador.x;
+    let jugadorDerecha = jugador.x + jugador.ancho;
+    let jugadorArriba = jugador.y;
+    let jugadorAbajo = jugador.y + jugador.alto;
+
+    //Si esto se cumple significa que no hay colisión
+    if(
+        jugadorIzquierda > enemigoDerecha ||
+        jugadorDerecha < enemigoIzquierda ||
+        jugadorArriba > enemigoAbajo ||
+        jugadorAbajo < enemigoArriba
+    ) {
+        return
+    }
+
+    enemigo.x = numeroAleatorio(0, mapa.width - enemigo.ancho);
+    enemigo.y = numeroAleatorio(0, mapa.height - enemigo.alto);
+    jugador.x = numeroAleatorio(0, mapa.width - jugador.ancho);
+    jugador.y = numeroAleatorio(0, mapa.height - jugador.alto);
+}
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
