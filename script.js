@@ -5,8 +5,8 @@ class Batalla_de_mascotas {
         this.id = id;
         this.ataques = [];
 
-        this.ancho = mapa.width * 50 / 500;
-        this.alto = this.ancho;
+        this.ancho = size_img_mascota;
+        this.alto = size_img_mascota;
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
         
@@ -89,6 +89,8 @@ if (anchoDelMapa > anchoMaximoDelMapa) {
 alturaQueBuscamos = anchoDelMapa * 700 / 800;
 mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
+
+let size_img_mascota = mapa.width * 50 / 500;
 
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};

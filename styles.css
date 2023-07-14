@@ -249,7 +249,7 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
 }
 /* ___________________________________________________________________________________________________________________ */
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     
     #section_1 {
         width: auto;
@@ -257,7 +257,7 @@ body {
     }
 
     .titulo {
-        margin-top: 60px;
+        margin-top: 15px;
         width: 319px;
         height: 33px;
         text-align: center;
@@ -301,7 +301,7 @@ body {
     }
 
     .titulo {
-        margin-top: 60px;
+        margin-top: 15px;
         width: 177px;
         height: 18px;
         text-align: center;
