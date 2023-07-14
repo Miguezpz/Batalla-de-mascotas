@@ -1,34 +1,4 @@
-class Batalla_de_mascotas {
-    constructor(nombre, img, id, img_head, x = 10, y = 165) {
-        this.nombre = nombre;
-        this.img = img;
-        this.id = id;
-        this.ataques = [];
 
-        this.ancho = size_img_mascota;
-        this.alto = size_img_mascota;
-        this.x = numeroAleatorio(0, mapa.width - this.ancho);
-        this.y = numeroAleatorio(0, mapa.height - this.alto);
-        
-        this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
-        this.mapaFoto.src = img; //Imagenes Originales de las mascotas
-        this.velocidad_X = 0;
-        this.velocidad_Y = 0;
-        this.cabezaFoto = new Image(); //Imagenes Platzi
-        this.cabezaFoto.src = img_head; //Imagenes Platzi
-    }
-
-    pintarMascota() {
-
-        lienzo.drawImage(
-            this.cabezaFoto, 
-            this.x, 
-            this.y, 
-            this.ancho, 
-            this.alto
-        );
-    }
-}
 
 const section_1 = document.getElementById("section_1");
 const section_mapa = document.getElementById("ver-mapa");
@@ -91,6 +61,38 @@ mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
 let size_img_mascota = mapa.width * 60 / 500;
 
+class Batalla_de_mascotas {
+    constructor(nombre, img, id, img_head) {
+        this.nombre = nombre;
+        this.img = img;
+        this.id = id;
+        this.ataques = [];
+
+        this.ancho = size_img_mascota;
+        this.alto = size_img_mascota;
+        this.x = numeroAleatorio(0, mapa.width - this.ancho);
+        this.y = numeroAleatorio(0, mapa.height - this.alto);
+        
+        this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
+        this.mapaFoto.src = img; //Imagenes Originales de las mascotas
+        this.velocidad_X = 0;
+        this.velocidad_Y = 0;
+        this.cabezaFoto = new Image(); //Imagenes Platzi
+        this.cabezaFoto.src = img_head; //Imagenes Platzi
+    }
+
+    pintarMascota() {
+
+        lienzo.drawImage(
+            this.cabezaFoto, 
+            this.x, 
+            this.y, 
+            this.ancho, 
+            this.alto
+        );
+    }
+}
+
 const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
 const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
@@ -111,17 +113,17 @@ let guero = new Batalla_de_mascotas(
 
 //Mascotas Enemigas
 let enemigo_peluchin = new Batalla_de_mascotas(
-    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png", 300, 140);
+    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png");
 let enemigo_sazu = new Batalla_de_mascotas(
-    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png", 155, 330);
+    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png");
 let enemigo_aren = new Batalla_de_mascotas(
-    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png", 630, 30);
+    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png");
 let enemigo_oreo = new Batalla_de_mascotas(
-    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png", 680, 310);
+    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png");
 let enemigo_loro = new Batalla_de_mascotas(
-    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png", 100, 60);
+    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png");
 let enemigo_guero = new Batalla_de_mascotas(
-    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png", 489, 240);
+    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png");
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
