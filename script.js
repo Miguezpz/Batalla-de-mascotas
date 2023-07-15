@@ -51,13 +51,14 @@ let anchoDelMapa = window.innerWidth - 90;
 const anchoMaximoDelMapa = 480;
 
 if (anchoDelMapa > anchoMaximoDelMapa) {
-    anchoDelMapa = anchoMaximoDelMapa - 20;
+    anchoDelMapa = anchoMaximoDelMapa;
 }
 
 alturaQueBuscamos = anchoDelMapa * 700 / 800;
 mapa.width = anchoDelMapa;
 mapa.height = alturaQueBuscamos;
 let size_img_mascota = mapa.width * 60 / 500;
+let velocidad_de_desplazamiento = mapa.width * 15 / anchoMaximoDelMapa;
 
 // Clase--------------------------------------------------------------
 class Batalla_de_mascotas {
@@ -428,19 +429,19 @@ function pintarCanvas() {
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
 function moverDerecha() {
-    mascota_P1.velocidad_X = 20;
+    mascota_P1.velocidad_X = velocidad_de_desplazamiento;
 }
 
 function moverIzquierda() {
-    mascota_P1.velocidad_X = -20;
+    mascota_P1.velocidad_X = -velocidad_de_desplazamiento;
 }
 
 function moverAbajo() {
-    mascota_P1.velocidad_Y = 20;
+    mascota_P1.velocidad_Y = velocidad_de_desplazamiento;
 }
 
 function moverArriba() {
-    mascota_P1.velocidad_Y = -20;
+    mascota_P1.velocidad_Y = -velocidad_de_desplazamiento;
 }
 
 function detenerMovimiento() {
