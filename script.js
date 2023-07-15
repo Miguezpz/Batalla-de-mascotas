@@ -73,6 +73,8 @@ class Batalla_de_mascotas {
         this.alto = size_img_mascota;
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
+
+        this.hitbox_img = 47 * this.ancho / 100; //Representa el 47% del w y h de la imagen de la mascota;
         
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
         this.mapaFoto.src = img; //Imagenes Originales de las mascotas
@@ -499,14 +501,14 @@ function removerObjetoDeArray_mascotas_enemigas(seleccion) {
 
 function detectarColision(enemigo, jugador) {
 
-    const enemigoDerecha = enemigo.x + enemigo.ancho;
+    const enemigoDerecha = enemigo.x + enemigo.ancho - enemigo.hitbox_img;
     const enemigoIzquierda = enemigo.x;
-    const enemigoAbajo = enemigo.y + enemigo.alto;
+    const enemigoAbajo = enemigo.y + enemigo.alto - enemigo.hitbox_img;
     const enemigoArriba = enemigo.y;
 
-    const jugadorDerecha = jugador.x + jugador.ancho;
+    const jugadorDerecha = jugador.x + jugador.ancho - jugador.hitbox_img;
     const jugadorIzquierda = jugador.x;
-    const jugadorAbajo = jugador.y + jugador.alto;
+    const jugadorAbajo = jugador.y + jugador.alto - enemigo.hitbox_img;
     const jugadorArriba = jugador.y;
 
     if(
