@@ -392,6 +392,7 @@ function iniciarMapa() {
     window.addEventListener("keyup", detenerMovimientoTeclas);
 }
 
+//Aquí dibujo las mascotas y el fondo sobre el lienzo Canvas, muevo los objetos y detecto colisiones.
 function pintarCanvas() {
     
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
@@ -414,6 +415,8 @@ function pintarCanvas() {
     });
 
     if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
+
+        detenerEnBordesDelMapa(mascota_P1);
         
         mascotas_enemigas.forEach(enemigo => {
             detectarColision(enemigo, mascota_P1);
@@ -542,5 +545,35 @@ function detectarEnemigoSeleccionadoCanvas(enemigo) {
         return guero;
     };
 };
+
+function detenerEnBordesDelMapa(jugador) {
+    
+    let izquierdaMapa = 0;
+    let derechaMapa = mapa.width;
+    let abajoMapa = mapa.height;
+    let arribaMapa = 0;
+
+    let izquierdaJugador = jugador.x;
+    let derechaJugador = jugador.x + jugador.ancho;
+    let abajoJugador = jugador.y + jugador.alto;
+    let arribaJugador = jugador.y;
+
+    if (izquierdaJugador < izquierdaMapa) {
+        jugador.x = izquierdaMapa;
+    };
+
+    if (derechaJugador > derechaMapa) {
+        jugador.x = derechaMapa - jugador.ancho;
+    };
+
+    if (abajoJugador > abajoMapa) {
+        jugador.y = abajoMapa - jugador.alto;
+    };
+
+    if (arribaJugador < arribaMapa) {
+        jugador.y = arribaMapa;
+    };
+};
+
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
