@@ -542,33 +542,5 @@ function detectarEnemigoSeleccionadoCanvas(enemigo) {
         return guero;
     };
 };
-
-function evitarColision(enemigo, jugador) {
-
-    let enemigoIzquierda = enemigo.x;
-    let enemigoDerecha = enemigo.x + enemigo.ancho;
-    let enemigoArriba = enemigo.y;
-    let enemigoAbajo = enemigo.y + enemigo.alto;
-    
-    let jugadorIzquierda = jugador.x;
-    let jugadorDerecha = jugador.x + jugador.ancho;
-    let jugadorArriba = jugador.y;
-    let jugadorAbajo = jugador.y + jugador.alto;
-
-    //Si esto se cumple significa que no hay colisión
-    if(
-        jugadorIzquierda > enemigoDerecha ||
-        jugadorDerecha < enemigoIzquierda ||
-        jugadorArriba > enemigoAbajo ||
-        jugadorAbajo < enemigoArriba
-    ) {
-        return
-    }
-
-    enemigo.x = numeroAleatorio(0, mapa.width - enemigo.ancho);
-    enemigo.y = numeroAleatorio(0, mapa.height - enemigo.alto);
-    jugador.x = numeroAleatorio(0, mapa.width - jugador.ancho);
-    jugador.y = numeroAleatorio(0, mapa.height - jugador.alto);
-}
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
