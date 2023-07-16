@@ -428,60 +428,60 @@ function pintarCanvas() {
 };
 
 // Con estas funciones la mascota se mueve arriba, abajo, derecha o izquierda;
-function moverDerecha() {
-    mascota_P1.velocidad_X = velocidad_de_desplazamiento;
-}
 
-function moverIzquierda() {
-    mascota_P1.velocidad_X = -velocidad_de_desplazamiento;
-}
+function mover(direccion) {
 
-function moverAbajo() {
-    mascota_P1.velocidad_Y = velocidad_de_desplazamiento;
-}
+    if (direccion === "derecha") {
+        mascota_P1.velocidad_X = velocidad_de_desplazamiento;
 
-function moverArriba() {
-    mascota_P1.velocidad_Y = -velocidad_de_desplazamiento;
-}
+    } else if (direccion === "izquierda") {
+        mascota_P1.velocidad_X = -velocidad_de_desplazamiento;
 
-function detenerMovimiento() {
-    mascota_P1.velocidad_X = 0;
-    mascota_P1.velocidad_Y = 0;
+    } else if (direccion === "abajo") {
+        mascota_P1.velocidad_Y = velocidad_de_desplazamiento;
+
+    } else if (direccion === "arriba") {
+        mascota_P1.velocidad_Y = -velocidad_de_desplazamiento;
+
+    } else if (direccion === "detener") {
+        mascota_P1.velocidad_X = 0;
+        mascota_P1.velocidad_Y = 0;
+    }
 }
 
 function moverConTeclas(e) {
 
     if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
-        moverDerecha();
+        mover("derecha");
 
     } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
-        moverIzquierda();
+        mover("izquierda");
 
     } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
-        moverAbajo();
+        mover("abajo");
 
     } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
-        moverArriba();
+        mover("arriba");
 
     }
-}
+};
 
 function detenerMovimientoTeclas(e) {
 
     if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
-        detenerMovimiento();
+        mover("detener");
 
     } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
-        detenerMovimiento();
+        mover("detener");
 
     } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
-        detenerMovimiento();
+        mover("detener");
 
     } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
-        detenerMovimiento();
+        mover("detener");
         
     }
-}
+};
 
 function removerObjetoDeArray_mascotas_enemigas(seleccion) {
     
@@ -498,7 +498,7 @@ function removerObjetoDeArray_mascotas_enemigas(seleccion) {
     } else if(seleccion === guero) {
         mascotas_enemigas.splice(5, 1);
     }
-}
+};
 
 function detectarColision(enemigo, jugador) {
 
@@ -521,7 +521,7 @@ function detectarColision(enemigo, jugador) {
         return;
     };
 
-    detenerMovimiento();
+    mover('detener');
     clearInterval(intervalo);
     secciones("none", "none", "flex", "none", "flex");
     seleccionarEnemigoManual(enemigo);
