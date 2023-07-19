@@ -400,6 +400,7 @@ function pintarCanvas() {
     
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
     mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
+    detenerEnBordesDelMapa(mascota_P1);
 
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
 
@@ -419,8 +420,6 @@ function pintarCanvas() {
 
     if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
 
-        detenerEnBordesDelMapa(mascota_P1);
-        
         mascotas_enemigas.forEach(enemigo => {
             detectarColision(enemigo, mascota_P1);
         });
