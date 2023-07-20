@@ -46,19 +46,25 @@ let intervalo;
 let mascotas = [];
 let mascotas_enemigas = [];
 
-let alturaQueBuscamos;
-let anchoDelMapa = window.innerWidth - 90;
-const anchoMaximoDelMapa = 480;
+//______________Dimensiones del Canvas_________________________________________
 
-if (anchoDelMapa > anchoMaximoDelMapa) {
-    anchoDelMapa = anchoMaximoDelMapa;
-}
+let anchoMapa = window.innerWidth - 100;
+const anchoMaximoMapa = 480;
 
-alturaQueBuscamos = anchoDelMapa * 700 / 800;
-mapa.width = anchoDelMapa;
-mapa.height = alturaQueBuscamos;
-let size_img_mascota = mapa.width * 60 / 500;
-let velocidad_de_desplazamiento = mapa.width * 15 / anchoMaximoDelMapa;
+if (anchoMapa > anchoMaximoMapa) {
+    anchoMapa = anchoMaximoMapa;
+};
+
+let altoMapa = anchoMapa * 440 / anchoMaximoMapa;
+
+mapa.width = anchoMapa;
+mapa.height = altoMapa;
+
+let size_img_mascota = anchoMapa * 50 / anchoMaximoMapa;
+
+let hitbox_img = size_img_mascota * 50 / 100;
+let velocidad_de_desplazamiento = mapa.width * 15 / anchoMaximoMapa;
+
 
 // Clase--------------------------------------------------------------
 class Batalla_de_mascotas {
@@ -74,8 +80,6 @@ class Batalla_de_mascotas {
         this.alto = size_img_mascota;
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
-
-        this.hitbox_img = 47 * this.ancho / 100; //Representa el 47% del w y h de la imagen de la mascota;
         
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
         this.mapaFoto.src = img; //Imagenes Originales de las mascotas
@@ -501,14 +505,14 @@ function removerObjetoDeArray_mascotas_enemigas(seleccion) {
 
 function detectarColision(enemigo, jugador) {
 
-    const enemigoDerecha = enemigo.x + enemigo.ancho - enemigo.hitbox_img;
-    const enemigoIzquierda = enemigo.x;
-    const enemigoAbajo = enemigo.y + enemigo.alto - enemigo.hitbox_img;
-    const enemigoArriba = enemigo.y;
+    const enemigoDerecha = enemigo.x + enemigo.ancho - hitbox_img;
+    const enemigoIzquierda = enemigo.x + hitbox_img;
+    const enemigoAbajo = enemigo.y + enemigo.alto - hitbox_img;
+    const enemigoArriba = enemigo.y + hitbox_img;
 
-    const jugadorDerecha = jugador.x + jugador.ancho - jugador.hitbox_img;
+    const jugadorDerecha = jugador.x + jugador.ancho;
     const jugadorIzquierda = jugador.x;
-    const jugadorAbajo = jugador.y + jugador.alto - enemigo.hitbox_img;
+    const jugadorAbajo = jugador.y + jugador.alto;
     const jugadorArriba = jugador.y;
 
     if(
