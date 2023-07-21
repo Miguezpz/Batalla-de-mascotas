@@ -17,7 +17,7 @@ const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 const div_victorias_J1 = document.getElementById("victorias-J1");
 const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
 const mapa = document.getElementById("mapa");
-const lienzo = mapa.getContext("2d");s
+const lienzo = mapa.getContext("2d");
 const mapa_background = new Image();
 mapa_background.src = "./resources/assets/mokemap.png";
 let input_radio_peluchin;
