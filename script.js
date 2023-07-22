@@ -101,37 +101,37 @@ class Batalla_de_mascotas {
     }
 }
 
-const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
-const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
-const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
+const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.png"};
+const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
+const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.png"};
 
 //Mascotas
 let peluchin = new Batalla_de_mascotas(
-    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
 let sazu = new Batalla_de_mascotas(
-    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png");
+    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
 let aren = new Batalla_de_mascotas(
-    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png");
+    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
 let oreo = new Batalla_de_mascotas(
-    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png");
+    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
 let loro = new Batalla_de_mascotas(
-    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png");
+    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
 let guero = new Batalla_de_mascotas(
-    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png");
+    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
 
 //Mascotas Enemigas
 let enemigo_peluchin = new Batalla_de_mascotas(
-    "Peluchin", "./resources/assets/peluchin.jpg", "peluchin_id", "/resources/assets/capipepo_cabeza.png");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
 let enemigo_sazu = new Batalla_de_mascotas(
-    "Sazu", "./resources/assets/sazu.jpg", "sazu_id", "/resources/assets/hipodoge_cabeza.png");
+    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
 let enemigo_aren = new Batalla_de_mascotas(
-    "Aren", "./resources/assets/aren.png", "aren_id", "/resources/assets/ratigueya_cabeza.png");
+    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
 let enemigo_oreo = new Batalla_de_mascotas(
-    "Oreo", "./resources/assets/oreo.jpg", "oreo_id", "/resources/assets/langostelvis_cabeza.png");
+    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
 let enemigo_loro = new Batalla_de_mascotas(
-    "Loro", "./resources/assets/loro.jpg", "loro_id", "/resources/assets/pydos_cabeza.png");
+    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
 let enemigo_guero = new Batalla_de_mascotas(
-    "Güero", "./resources/assets/güero.jpg", "guero_id", "/resources/assets/tucapalma_cabeza.png");
+    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
