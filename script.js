@@ -92,7 +92,7 @@ class Batalla_de_mascotas {
     pintarMascota() {
 
         lienzo.drawImage(
-            this.cabezaFoto, 
+            this.mapaFoto, 
             this.x, 
             this.y, 
             this.ancho, 
