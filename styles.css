@@ -292,6 +292,40 @@ body {
     #boton-seleccionar {
         margin-top: 35px;
     }
+
+    #caja-botones-ataque {
+        margin: 15px 10px 0px 10px;
+        gap:20px;
+    }
+
+    .botones-generados {
+        width: 80px;
+        height: 80px;
+    }
+
+    .botones-generados img {
+        width: 54px;
+        height: 54px;
+    }
+
+    .panel-combate {
+        grid-template: 1fr / 1fr 80px 1fr;
+        gap: 10px;
+        font-size: 7px;
+    }
+
+    .mascota-seleccionada {
+        width: 130px;
+        height: 130px;
+    }
+
+    .div-panel-c {
+        height: 145px;
+    }
+
+    .contador-victorias {
+        font-size: 7px;
+    }
 }
 /* --------------------------------------- */
 @media (max-width: 200px) {
