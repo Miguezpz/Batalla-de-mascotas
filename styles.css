@@ -325,6 +325,30 @@ body {
 
     .contador-victorias {
         font-size: 7px;
+        text-align: center;
+    }
+
+    .ataques-seleccionados {
+        gap: 1px;
+    }
+
+    .imagen-ataque-seleccionado {
+        width: 20px;
+        height: 20px;
+    }
+
+    .lateral-ataques { /* nuevo */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cuadro-ataque-seleccionado {
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 /* --------------------------------------- */
