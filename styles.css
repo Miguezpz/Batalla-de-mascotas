@@ -312,6 +312,8 @@ body {
         grid-template: 1fr / 1fr 80px 1fr;
         gap: 10px;
         font-size: 7px;
+        padding: 0px;
+        margin: 0px;
     }
 
     .mascota-seleccionada {
@@ -326,15 +328,21 @@ body {
     .contador-victorias {
         font-size: 7px;
         text-align: center;
+        margin: 3px auto;
     }
 
     .ataques-seleccionados {
-        gap: 1px;
+        gap: 8px;
     }
 
     .imagen-ataque-seleccionado {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 15px;
+        border-radius: 7px;
+    }
+
+    .ataques {
+        height: 129px;
     }
 
     .lateral-ataques { /* nuevo */
@@ -342,13 +350,19 @@ body {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 0px;
+        margin: 0px;
     }
 
     .cuadro-ataque-seleccionado {
-        display: inline-flex;
+        display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 0px;
+        margin:  10px 5px;
+        width: 15px;
+        height: 15px;
     }
 }
 /* --------------------------------------- */
