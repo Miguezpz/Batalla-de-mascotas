@@ -322,13 +322,13 @@ body {
     }
 
     .div-panel-c {
-        height: 145px;
+        height: 146px;
     }
 
     .contador-victorias {
         font-size: 7px;
         text-align: center;
-        margin: 3px auto;
+        margin: 2px 0px 0px 0px;
     }
 
     .ataques-seleccionados {
