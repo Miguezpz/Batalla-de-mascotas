@@ -45,6 +45,7 @@ let boton_presionado;
 let intervalo;
 let mascotas = [];
 let mascotas_enemigas = [];
+let mascotas_canvas = [];
 
 //______________Dimensiones del Canvas_________________________________________
 
@@ -98,6 +99,12 @@ class Batalla_de_mascotas {
             this.ancho, 
             this.alto
         );
+    }
+
+    coordenadasAleatorias() {
+
+        this.x = numeroAleatorio(0, mapa.width - this.ancho);
+        this.y = numeroAleatorio(0, mapa.height - this.alto);
     }
 }
 
@@ -224,6 +231,8 @@ function accionesPreviasModo_historia() {
 
     secciones("none", "flex", "none", "none", "none");
     removerObjetoDeArray_mascotas_enemigas(mascota_P1);
+    mascotas_canvas.push(mascota_P1, ...mascotas_enemigas); // Inyecto el jugador y los enemigos
+    proceso(); // Si hay colisión recoloca mascotas en el canvas
     iniciarMapa();
 };
 
@@ -581,5 +590,50 @@ function detenerEnBordesDelMapa(jugador) {
     };
 };
 
+
+function evitarColision(mascota_1, mascota_2) {
+
+    const mascota_1Izquierda = mascota_1.x;
+    const mascota_1Derecha = mascota_1.x + mascota_1.ancho;
+    const mascota_1Arriba = mascota_1.y;
+    const mascota_1Abajo = mascota_1.y + mascota_1.alto;
+
+    const mascota_2Izquierda = mascota_2.x;
+    const mascota_2Derecha = mascota_2.x + mascota_2.ancho;
+    const mascota_2Arriba = mascota_2.y;
+    const mascota_2Abajo = mascota_2.y + mascota_2.alto;
+
+    if (
+        mascota_1Izquierda > mascota_2Derecha ||
+        mascota_1Derecha < mascota_2Izquierda ||
+        mascota_1Arriba > mascota_2Abajo ||
+        mascota_1Abajo < mascota_2Arriba
+    ) {
+        //No existe colisión
+        return;
+    };
+
+    //Si hubo colisión
+    alert("colisión");
+    mascotas_canvas.forEach(mascota => {
+        mascota.coordenadasAleatorias();
+    });
+    proceso();
+};
+
+function proceso() {
+    console.log("----------------PROCESO()--------------")
+
+    for (let i = 0; i < mascotas_canvas.length; i++) {
+
+        console.log("_____________");
+
+        for(let k = i + 1; k < mascotas_canvas.length; k++) {
+
+            console.log("-" + i, k)
+            evitarColision(mascotas_canvas[i], mascotas_canvas[k]);
+        };
+    };
+};
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
