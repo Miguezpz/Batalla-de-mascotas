@@ -130,7 +130,7 @@ body {
     height: 40px;
 }
 
-.left-right + .up-down {
+.left-right, .up-down {
     -webkit-touch-callout: none; /* Evita el menú emergente de copiar en iOS */
     -webkit-user-select: none; /* Evita la selección de texto en iOS */
     -khtml-user-select: none; /* Evita la selección de texto en Konqueror (un navegador obsoleto) */
