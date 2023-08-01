@@ -292,6 +292,12 @@ body {
 
     #boton-seleccionar {
         margin-top: 35px;
+        -webkit-touch-callout: none; /* Evita el menú emergente de copiar en iOS */
+        -webkit-user-select: none; /* Evita la selección de texto en iOS */
+        -khtml-user-select: none; /* Evita la selección de texto en Konqueror (un navegador obsoleto) */
+        -moz-user-select: none; /* Evita la selección de texto en Firefox */
+        -ms-user-select: none; /* Evita la selección de texto en Internet Explorer y Edge */
+        user-select: none; /* Evita la selección de texto en otros navegadores modernos */
     }
 
     #caja-botones-ataque {
