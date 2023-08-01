@@ -268,7 +268,7 @@ body {
     .titulo {
         display: flex;
         flex-wrap: wrap;
-        margin: 15px 100px 0px 100px;
+        margin: 15px 90px 0px 90px;
         padding: 1px 3px;
         text-align: center;
         font-size: 27px;
