@@ -309,9 +309,13 @@ body {
     }
 
     .caja-botones-direccionales {
-        
         grid-template: 100px / 100px 100px 100px;
         margin-top: 30px;
+        gap: 4px;
+    }
+
+    .caja-up-down {
+        gap:4px;
     }
 
     .left-right, .up-down {
@@ -321,13 +325,15 @@ body {
         outline: none; /* Elimina el contorno de enfoque */
         box-shadow: none; /* Elimina la sombra o relieve */
         cursor: pointer; /* Restaura el cursor predeterminado */
+        border: 1px black solid;
+        border-radius: 10px;
     }
 
     .left-right:active,
     .left-right:focus,
     .up-down:active,
     .up-down:focus {
-        background-color: purple;
+        background-color: rgb(201, 91, 201);
         outline: none; /* Elimina el contorno de enfoque */
         box-shadow: none; /* Elimina la sombra o relieve */
         cursor: pointer; /* Restaura el cursor predeterminado */
