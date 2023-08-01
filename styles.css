@@ -63,12 +63,12 @@ body {
 }
 
 .label-mascota:hover {
-    background-color: rgb(255, 184, 112);
+    background-color: rgb(235, 169, 235);
     color:white;
 }
 
 .input-radio-mascotas:checked + .label-mascota {
-    background-color: rgb(255, 133, 62);
+    background-color: rgb(201, 91, 201);
     color: white;
 }
 
