@@ -614,7 +614,6 @@ function evitarColision(mascota_1, mascota_2) {
     };
 
     //Si hubo colisión
-    alert("colisión");
     mascotas_canvas.forEach(mascota => {
         mascota.coordenadasAleatorias();
     });

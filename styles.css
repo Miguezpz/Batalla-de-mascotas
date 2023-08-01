@@ -257,9 +257,10 @@ body {
     }
 
     .titulo {
-        margin-top: 15px;
-        width: 319px;
-        height: 33px;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 15px 30px 0px 30px;
+        padding: 1px 3px;
         text-align: center;
         font-size: 27px;
     }
