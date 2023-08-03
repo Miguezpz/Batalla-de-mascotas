@@ -288,26 +288,31 @@ function generarBotonesDeAtaque() {
         botones_por_su_class = document.querySelectorAll(".botones-generados img");
 
         botones_por_su_class.forEach(x => {
+
             x.parentNode.addEventListener("click", (e) => {
 
-                console.log(e);
                 boton_presionado = e.target.parentNode;
+                
+                if (e.target.attributes.src.value === piedra.img) {
 
-                if (e.target.alt === "piedra") {
                     boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(e.target.attributes.src.value);
-                } else if (e.target.alt === "papel") {
+                    ataqueSeleccionado_P1(piedra.img);
+
+                } else if (e.target.attributes.src.value === papel.img) {
+
                     boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(e.target.attributes.src.value);
-                } else if (e.target.alt === "tijera") {
+                    ataqueSeleccionado_P1(papel.img);
+
+                } else if (e.target.attributes.src.value === tijera.img) {
+                    
                     boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
                     boton_presionado.disabled = true;
                     contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(e.target.attributes.src.value);
+                    ataqueSeleccionado_P1(tijera.img);
                 }
             })
         })
@@ -337,21 +342,17 @@ function combate() {
 
     if (contador_de_ataques_seleccionados === 5) {
 
-        const piedra = {tipo:"piedra", img:"./resources/assets/piedra.png"};
-        const papel = {tipo:"papel", img:"./resources/assets/papel.png"};
-        const tijera = {tipo:"tijera", img:"./resources/assets/tijeras.png"};
-
         for (let i = 0; i < 5; i ++) {
 
-            if (ataques_seleccionados_P1[i] === "./resources/assets/piedra.png" && ataques_aleatorios_CPU[i] === "./resources/assets/tijeras.png") {
+            if (ataques_seleccionados_P1[i] === piedra.img && ataques_aleatorios_CPU[i] === tijera.img) {
 
                 victorias_P1 ++;
 
-            } else if (ataques_seleccionados_P1[i] === "./resources/assets/tijeras.png" && ataques_aleatorios_CPU[i] === "./resources/assets/papel.png") {
+            } else if (ataques_seleccionados_P1[i] === tijera.img && ataques_aleatorios_CPU[i] === papel.img) {
 
                 victorias_P1 ++;
 
-            } else if (ataques_seleccionados_P1[i] === "./resources/assets/papel.png" && ataques_aleatorios_CPU[i] === "./resources/assets/piedra.png") {
+            } else if (ataques_seleccionados_P1[i] === papel.img && ataques_aleatorios_CPU[i] === piedra.img) {
 
                 victorias_P1 ++;
 
@@ -621,15 +622,11 @@ function evitarColision(mascota_1, mascota_2) {
 };
 
 function proceso() {
-    console.log("----------------PROCESO()--------------")
 
     for (let i = 0; i < mascotas_canvas.length; i++) {
 
-        console.log("_____________");
-
         for(let k = i + 1; k < mascotas_canvas.length; k++) {
 
-            console.log("-" + i, k)
             evitarColision(mascotas_canvas[i], mascotas_canvas[k]);
         };
     };
