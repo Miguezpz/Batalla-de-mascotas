@@ -64,7 +64,7 @@ mapa.height = altoMapa;
 let size_img_mascota = anchoMapa * 50 / anchoMaximoMapa;
 
 let hitbox_img = size_img_mascota * 50 / 100;
-let velocidad_de_desplazamiento = mapa.width * 15 / anchoMaximoMapa;
+let velocidad_de_desplazamiento = mapa.width * 3 / anchoMaximoMapa;
 
 
 // Clase--------------------------------------------------------------
@@ -404,7 +404,7 @@ function imprimirAtaques() {
 
 //Canvas; Es el mapa en el que se desplaza la mascota seleccionada
 function iniciarMapa() {
-    intervalo = setInterval(pintarCanvas, 50);
+    intervalo = setInterval(pintarCanvas, 10);
     window.addEventListener("keydown", moverConTeclas);
     window.addEventListener("keyup", detenerMovimientoTeclas);
 }
@@ -414,7 +414,6 @@ function pintarCanvas() {
     
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
     mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
-    detenerEnBordesDelMapa(mascota_P1);
 
     lienzo.clearRect(0, 0, mapa.width, mapa.height);
 
@@ -434,6 +433,7 @@ function pintarCanvas() {
 
     if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
 
+        detenerEnBordesDelMapa(mascota_P1);
         mascotas_enemigas.forEach(enemigo => {
             detectarColision(enemigo, mascota_P1);
         });
