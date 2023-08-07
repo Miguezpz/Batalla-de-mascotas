@@ -594,15 +594,15 @@ function detenerEnBordesDelMapa(jugador) {
 
 function evitarColision(mascota_1, mascota_2) {
 
-    const mascota_1Izquierda = mascota_1.x;
-    const mascota_1Derecha = mascota_1.x + mascota_1.ancho;
-    const mascota_1Arriba = mascota_1.y;
+    const mascota_1Izquierda = mascota_1.x - hitbox_img;
+    const mascota_1Derecha = mascota_1.x + mascota_1.ancho + hitbox_img;
+    const mascota_1Arriba = mascota_1.y - hitbox_img;
     const mascota_1Abajo = mascota_1.y + mascota_1.alto;
 
-    const mascota_2Izquierda = mascota_2.x;
-    const mascota_2Derecha = mascota_2.x + mascota_2.ancho;
-    const mascota_2Arriba = mascota_2.y;
-    const mascota_2Abajo = mascota_2.y + mascota_2.alto;
+    const mascota_2Izquierda = mascota_2.x - hitbox_img;
+    const mascota_2Derecha = mascota_2.x + mascota_2.ancho + hitbox_img;
+    const mascota_2Arriba = mascota_2.y - hitbox_img;
+    const mascota_2Abajo = mascota_2.y + mascota_2.alto + hitbox_img;
 
     if (
         mascota_1Izquierda > mascota_2Derecha ||
