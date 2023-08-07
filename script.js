@@ -49,6 +49,7 @@ let mascotas_canvas = [];
 
 //______________Dimensiones del Canvas_________________________________________
 
+const devicePixelRatio = window.devicePixelRatio || 1;
 let anchoMapa = window.innerWidth - 100;
 const anchoMaximoMapa = 480;
 
