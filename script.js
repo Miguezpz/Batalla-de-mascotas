@@ -634,3 +634,6 @@ function proceso() {
 };
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
+
+/* 'He descubierto un error, cuando presiono sobre un ataque especificamente en el borde el botón entonces genera un error en la consola,
+ debo averiguar como hacer que aunque se haga click en la orilla del botón se accione el botón correspondiente' */
