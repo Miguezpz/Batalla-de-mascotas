@@ -29,7 +29,7 @@ let input_radio_guero;
 let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
-let ataques_P1;
+let ataques_P1 = [];
 let ataques_P2;
 let ataques_CPU = [];
 let botones_ataques_P1;
@@ -252,7 +252,7 @@ function seleccionarEnemigoAleatorio() {
 
 function seleccionarEnemigoManual(enemigo) {
     
-    mascota_CPU = detectarEnemigoSeleccionadoCanvas(enemigo);
+    mascota_CPU = mascotas[mascotas.findIndex(mascota => mascota.nombre === enemigo.nombre)]; //Optimizado
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
 
@@ -277,7 +277,7 @@ function generarImagenesDeMascotas() {
 
 function generarBotonesDeAtaque() {
     
-    ataques_P1 = mascota_P1.ataques;
+    ataques_P1.push(...mascota_P1.ataques); //Optimizado
 
     ataques_P1.forEach(x => {
         botones_ataques_P1 = `
@@ -497,21 +497,10 @@ function detenerMovimientoTeclas(e) {
     }
 };
 
-function removerObjetoDeArray_mascotas_enemigas(seleccion) {
-    
-    if(seleccion === peluchin) {
-        mascotas_enemigas.splice(0, 1);
-    } else if(seleccion === sazu) {
-        mascotas_enemigas.splice(1, 1);
-    } else if(seleccion === aren) {
-        mascotas_enemigas.splice(2, 1);
-    } else if(seleccion === oreo) {
-        mascotas_enemigas.splice(3, 1);
-    } else if(seleccion === loro) {
-        mascotas_enemigas.splice(4, 1);
-    } else if(seleccion === guero) {
-        mascotas_enemigas.splice(5, 1);
-    }
+function removerObjetoDeArray_mascotas_enemigas(seleccion) { //Optimizado
+
+    const mascotaIndex = mascotas_enemigas.findIndex(mascota => mascota.nombre === seleccion.nombre);
+    mascotas_enemigas.splice(mascotaIndex, 1);
 };
 
 function detectarColision(enemigo, jugador) {
@@ -526,7 +515,7 @@ function detectarColision(enemigo, jugador) {
     const jugadorAbajo = jugador.y + jugador.alto;
     const jugadorArriba = jugador.y;
 
-    if(
+    if (
         jugadorIzquierda > enemigoDerecha ||
         jugadorDerecha < enemigoIzquierda ||
         jugadorArriba > enemigoAbajo ||
@@ -539,28 +528,6 @@ function detectarColision(enemigo, jugador) {
     clearInterval(intervalo);
     secciones("none", "none", "flex", "none", "flex");
     seleccionarEnemigoManual(enemigo);
-};
-
-function detectarEnemigoSeleccionadoCanvas(enemigo) {
-
-    if(enemigo === enemigo_peluchin) {
-        return peluchin;
-
-    } else if(enemigo === enemigo_sazu) {
-        return sazu;
-
-    } else if(enemigo === enemigo_aren) {
-        return aren;
-
-    } else if(enemigo === enemigo_oreo) {
-        return oreo;
-
-    } else if(enemigo === enemigo_loro) {
-        return loro;
-
-    } else if(enemigo === enemigo_guero) {
-        return guero;
-    };
 };
 
 function detenerEnBordesDelMapa(jugador) {
@@ -626,7 +593,7 @@ function proceso() {
 
     for (let i = 0; i < mascotas_canvas.length; i++) {
 
-        for(let k = i + 1; k < mascotas_canvas.length; k++) {
+        for (let k = i + 1; k < mascotas_canvas.length; k++) {
 
             evitarColision(mascotas_canvas[i], mascotas_canvas[k]);
         };
