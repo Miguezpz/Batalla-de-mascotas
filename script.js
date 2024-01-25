@@ -100,14 +100,14 @@ class Batalla_de_mascotas {
             this.ancho, 
             this.alto
         );
-    }
+    };
 
     coordenadasAleatorias() {
 
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
-    }
-}
+    };
+};
 
 const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.png"};
 const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
@@ -233,7 +233,7 @@ function accionesPreviasModo_historia() {
     secciones("none", "flex", "none", "none", "none");
     removerObjetoDeArray_mascotas_enemigas(mascota_P1);
     mascotas_canvas.push(mascota_P1, ...mascotas_enemigas); // Inyecto el jugador y los enemigos
-    proceso(); // Si hay colisión recoloca mascotas en el canvas
+    revisar_y_evitar_colisiones_aleatorias(); // Si hay colisión recoloca mascotas en el canvas
     iniciarMapa();
 };
 
@@ -559,48 +559,73 @@ function detenerEnBordesDelMapa(jugador) {
     };
 };
 
+function revisar_y_evitar_colisiones_aleatorias() {
 
-function evitarColision(mascota_1, mascota_2) {
+    let colisiones = [];
 
-    const mascota_1Izquierda = mascota_1.x - hitbox_img;
-    const mascota_1Derecha = mascota_1.x + mascota_1.ancho + hitbox_img;
-    const mascota_1Arriba = mascota_1.y - hitbox_img;
-    const mascota_1Abajo = mascota_1.y + mascota_1.alto;
+    function evitarColision(mascota_1, mascota_2) {
 
-    const mascota_2Izquierda = mascota_2.x - hitbox_img;
-    const mascota_2Derecha = mascota_2.x + mascota_2.ancho + hitbox_img;
-    const mascota_2Arriba = mascota_2.y - hitbox_img;
-    const mascota_2Abajo = mascota_2.y + mascota_2.alto + hitbox_img;
-
-    if (
-        mascota_1Izquierda > mascota_2Derecha ||
-        mascota_1Derecha < mascota_2Izquierda ||
-        mascota_1Arriba > mascota_2Abajo ||
-        mascota_1Abajo < mascota_2Arriba
-    ) {
-        //No existe colisión
-        return;
+        const mascota_1Izquierda = mascota_1.x - hitbox_img;
+        const mascota_1Derecha = mascota_1.x + mascota_1.ancho + hitbox_img;
+        const mascota_1Arriba = mascota_1.y - hitbox_img;
+        const mascota_1Abajo = mascota_1.y + mascota_1.alto;
+    
+        const mascota_2Izquierda = mascota_2.x - hitbox_img;
+        const mascota_2Derecha = mascota_2.x + mascota_2.ancho + hitbox_img;
+        const mascota_2Arriba = mascota_2.y - hitbox_img;
+        const mascota_2Abajo = mascota_2.y + mascota_2.alto + hitbox_img;
+    
+        if (
+            mascota_1Izquierda > mascota_2Derecha ||
+            mascota_1Derecha < mascota_2Izquierda ||
+            mascota_1Arriba > mascota_2Abajo ||
+            mascota_1Abajo < mascota_2Arriba
+        ) {
+            //No existe colisión
+            return;
+        };
+    
+        //Si hubo colisión
+        colisiones.push('Colision');
     };
+    
+    function generar_y_comparar_coordenadas() {
 
-    //Si hubo colisión
-    mascotas_canvas.forEach(mascota => {
-        mascota.coordenadasAleatorias();
-    });
-    proceso();
-};
-
-function proceso() {
-
-    for (let i = 0; i < mascotas_canvas.length; i++) {
-
-        for (let k = i + 1; k < mascotas_canvas.length; k++) {
-
-            evitarColision(mascotas_canvas[i], mascotas_canvas[k]);
+        mascotas_canvas.forEach(mascota => {
+            mascota.coordenadasAleatorias();
+        });
+    
+        for (let i = 0; i < mascotas_canvas.length; i++) {
+    
+            for (let k = i + 1; k < mascotas_canvas.length; k++) {
+    
+                evitarColision(mascotas_canvas[i], mascotas_canvas[k]);
+            };
         };
     };
+
+    do {
+
+        console.log('Se ejecutó el ciclo do while');
+
+        if (colisiones.length > 0) {
+
+            colisiones.splice(0, colisiones.length);
+            console.log('Se eliminaron los elementos del array colisiones, colisiones = ', colisiones.length);
+        };
+
+        generar_y_comparar_coordenadas();
+
+        console.log('Colisiones detectados = ', colisiones.length);
+
+    } while (colisiones.length > 0);
+
+    console.log('SIN COLISIONES');
 };
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
 
 /* 'He descubierto un error, cuando presiono sobre un ataque especificamente en el borde el botón entonces genera un error en la consola,
  debo averiguar como hacer que aunque se haga click en la orilla del botón se accione el botón correspondiente' */
+
+ // Lo anterior ya lo resolví, y el código se encuentra en la carpeta curso_terminado;
