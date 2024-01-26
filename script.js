@@ -69,9 +69,9 @@ let velocidad_de_desplazamiento = mapa.width * 3 / anchoMaximoMapa;
 
 
 // Clase--------------------------------------------------------------
-class Batalla_de_mascotas {
+class Mascotas {
 
-    constructor(nombre, img, id, img_head) {
+    constructor(nombre, img, id, img_head, enemy_img_head) {
 
         this.nombre = nombre;
         this.img = img;
@@ -85,19 +85,34 @@ class Batalla_de_mascotas {
         
         this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
         this.mapaFoto.src = img; //Imagenes Originales de las mascotas
+
+        this.mapaFoto2 = new Image();
+        this.mapaFoto2.src = enemy_img_head;
+
         this.velocidad_X = 0;
         this.velocidad_Y = 0;
         this.cabezaFoto = new Image(); //Imagenes Platzi
         this.cabezaFoto.src = img_head; //Imagenes Platzi
-    }
+    };
 
-    pintarMascota() {
+    pintarMascotaUsuario() {
 
         lienzo.drawImage(
             this.mapaFoto, 
             this.x, 
             this.y, 
             this.ancho, 
+            this.alto
+        );
+    };
+
+    pintarMascotaEnemigo() {
+
+        lienzo.drawImage(
+            this.mapaFoto2,
+            this.x,
+            this.y,
+            this.ancho,
             this.alto
         );
     };
@@ -114,31 +129,31 @@ const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
 const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.png"};
 
 //Mascotas
-let peluchin = new Batalla_de_mascotas(
+let peluchin = new Mascotas(
     "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
-let sazu = new Batalla_de_mascotas(
+let sazu = new Mascotas(
     "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
-let aren = new Batalla_de_mascotas(
+let aren = new Mascotas(
     "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
-let oreo = new Batalla_de_mascotas(
+let oreo = new Mascotas(
     "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
-let loro = new Batalla_de_mascotas(
+let loro = new Mascotas(
     "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
-let guero = new Batalla_de_mascotas(
+let guero = new Mascotas(
     "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
 
 //Mascotas Enemigas
-let enemigo_peluchin = new Batalla_de_mascotas(
+let enemigo_peluchin = new Mascotas(
     "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
-let enemigo_sazu = new Batalla_de_mascotas(
+let enemigo_sazu = new Mascotas(
     "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
-let enemigo_aren = new Batalla_de_mascotas(
+let enemigo_aren = new Mascotas(
     "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
-let enemigo_oreo = new Batalla_de_mascotas(
+let enemigo_oreo = new Mascotas(
     "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
-let enemigo_loro = new Batalla_de_mascotas(
+let enemigo_loro = new Mascotas(
     "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
-let enemigo_guero = new Batalla_de_mascotas(
+let enemigo_guero = new Mascotas(
     "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
@@ -426,10 +441,10 @@ function pintarCanvas() {
         mapa.height
     );
 
-    mascota_P1.pintarMascota(); //Nuevo
+    mascota_P1.pintarMascotaUsuario(); //Nuevo
 
     mascotas_enemigas.forEach(enemigo => {
-        enemigo.pintarMascota();
+        enemigo.pintarMascotaUsuario();
     });
 
     if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
