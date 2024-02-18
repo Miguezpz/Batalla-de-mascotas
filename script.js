@@ -146,7 +146,7 @@ class Mascotas {
 
 //Mascotas
 let peluchin = new Mascotas(
-    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas_platzi/pydos_cabeza.png");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/h_peluchin.webp");
 let sazu = new Mascotas(
     "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/h_sazu.webp");
 let aren = new Mascotas(
