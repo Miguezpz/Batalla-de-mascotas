@@ -194,8 +194,6 @@ guero.ataques.push(...set_ataques_3);
 //-----------------------------------------------------------------------------------------------------------------
 function iniciarJuego() {
 
-    secciones("flex", "none", "none", "none", "none");
-
     mascotas.forEach(x => {
         let estructura = `
             <input type="radio" id="${x.id}" name="enlace" class="input-radio-mascotas">
@@ -213,35 +211,36 @@ function iniciarJuego() {
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
     boton_de_reiniciar.addEventListener("click", _ => location.reload());
+
+    secciones("flex", "none", "none", "none", "none");
 };
 
 function seleccionarMascota_P1() {
 
     if (input_radio_peluchin.checked) {
         mascota_P1 = peluchin;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
+
     } else if (input_radio_sazu.checked) {
         mascota_P1 = sazu;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
+
     } else if (input_radio_aren.checked) {
         mascota_P1 = aren;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
+
     } else if (input_radio_oreo.checked) {
         mascota_P1 = oreo;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
+
     } else if (input_radio_loro.checked) {
         mascota_P1 = loro;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
+
     } else if (input_radio_guero.checked) {
         mascota_P1 = guero;
-        div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
-        accionesPreviasModo_historia();
-    }
+
+    } else {
+        return;
+    };
+
+    div_nombre_mascota_J1.innerHTML = mascota_P1.nombre;
+    accionesPreviasModo_historia();
 };
 
 function numeroAleatorio(min, max) {
@@ -249,26 +248,27 @@ function numeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-function secciones(uno,canvas,dos,tres,cuatro) {
+function secciones(select_mascota, canvas, atqs, score_reload, panel_combate) {
 
-    section_1.style.display = uno;
+    section_1.style.display = select_mascota;
     section_mapa.style.display = canvas;
-    section_2.style.display = dos;
-    section_3.style.display = tres;
-    section_4.style.display = cuatro;
+    section_2.style.display = atqs;
+    section_3.style.display = score_reload;
+    section_4.style.display = panel_combate;
 };
 
-function mostrarVictorias(text1, text2) {
-    div_victorias_J1.innerHTML = text1;
-    div_victorias_J2_CPU.innerHTML = text2;
+function mostrarVictorias(victorias_jugador, victorias_enemigo) {
+
+    div_victorias_J1.innerHTML = victorias_jugador;
+    div_victorias_J2_CPU.innerHTML = victorias_enemigo;
 };
 
 function accionesPreviasModo_historia() {
 
-    secciones("none", "flex", "none", "none", "none");
     removerObjetoDeArray_mascotas_enemigas(mascota_P1);
     mascotas_canvas.push(mascota_P1, ...mascotas_enemigas); // Inyecto el jugador y los enemigos
     revisar_y_evitar_colisiones_aleatorias(); // Si hay colisión recoloca mascotas en el canvas
+    secciones("none", "flex", "none", "none", "none");
     iniciarMapa();
 };
 
@@ -448,10 +448,10 @@ function iniciarMapa() {
 //Aquí dibujo las mascotas y el fondo sobre el ctx Canvas, muevo los objetos y detecto colisiones.
 function pintarCanvas() {
     
+    ctx.clearRect(0, 0, mapa.width, mapa.height);
+
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
     mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
-
-    ctx.clearRect(0, 0, mapa.width, mapa.height);
 
     ctx.drawImage(
         mapa_background,
@@ -461,13 +461,13 @@ function pintarCanvas() {
         mapa.height
     );
 
-    mascota_P1.pintarMascotaUsuario(); //Nuevo
+    mascota_P1.pintarMascotaUsuario();
 
     mascotas_enemigas.forEach(enemigo => {
         enemigo.pintarMascotaUsuario();
     });
 
-    if(mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
+    if (mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
 
         detenerEnBordesDelMapa(mascota_P1);
         mascotas_enemigas.forEach(enemigo => {
@@ -500,36 +500,34 @@ function mover(direccion) {
 
 function moverConTeclas(e) {
 
-    if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
+    if (e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
         mover("derecha");
 
-    } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
+    } else if (e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
         mover("izquierda");
 
-    } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
+    } else if (e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
         mover("abajo");
 
-    } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
+    } else if (e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
         mover("arriba");
-
-    }
+    };
 };
 
 function detenerMovimientoTeclas(e) {
 
-    if(e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
+    if (e.key === "ArrowRight" || e.key === "D" || e.key === "d") {
         mover("detener");
 
-    } else if(e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
+    } else if (e.key === "ArrowLeft" || e.key === "A" || e.key === "a") {
         mover("detener");
 
-    } else if(e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
+    } else if (e.key === "ArrowDown" || e.key === "S" || e.key === "s") {
         mover("detener");
 
-    } else if(e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
-        mover("detener");
-        
-    }
+    } else if (e.key === "ArrowUp" || e.key === "W" || e.key === "w") {
+        mover("detener"); 
+    };
 };
 
 function removerObjetoDeArray_mascotas_enemigas(seleccion) { //Optimizado
