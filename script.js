@@ -176,9 +176,9 @@ mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
 
 //Ataques
-const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.png"};
-const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
-const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.png"};
+const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.webp"};
+const papel = {tipo:"papel", img:"./resources/ataques/papel.webp"};
+const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.webp"};
 
 const set_ataques_1 = [piedra, piedra, piedra, papel, tijera];
 const set_ataques_2 = [papel, papel, papel, tijera, piedra];
