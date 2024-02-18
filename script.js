@@ -1,8 +1,10 @@
+//secciones de HTML
 const section_1 = document.getElementById("section_1");
 const section_mapa = document.getElementById("ver-mapa");
 const section_2 = document.getElementById("section_2");
 const section_3 = document.getElementById("section_3");
 const section_4 = document.getElementById("section_4");
+
 const div_caja_mascotas = document.getElementById("caja-mascotas");
 const boton_seleccionar = document.getElementById("boton-seleccionar");
 const caja_botones_ataque = document.getElementById("caja-botones-ataque");
@@ -16,89 +18,107 @@ const div_img_mascota_J1 = document.getElementById("img-J1");
 const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 const div_victorias_J1 = document.getElementById("victorias-J1");
 const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
-const mapa = document.getElementById("mapa");
-const lienzo = mapa.getContext("2d");
-const mapa_background = new Image();
-mapa_background.src = "./resources/assets/mokemap.png";
+
+//inputs mascotas
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
 let input_radio_oreo;
 let input_radio_loro;
 let input_radio_guero;
+
+//players
 let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
-let ataques_P1 = [];
+
 let ataques_P2;
-let ataques_CPU = [];
 let botones_ataques_P1;
 let botones_por_su_class;
-let ataques_seleccionados_P1 = [];
-let ataques_seleccionados_P2 = [];
-let ataques_aleatorios_CPU = [];
 let victorias_P1 = 0;
 let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let boton_presionado;
 let intervalo;
+
+//arrays
+let ataques_P1 = [];
+let ataques_CPU = [];
+let ataques_seleccionados_P1 = [];
+let ataques_seleccionados_P2 = [];
+let ataques_aleatorios_CPU = [];
 let mascotas = [];
 let mascotas_enemigas = [];
 let mascotas_canvas = [];
 
-//______________Dimensiones del Canvas_________________________________________
+//______________Configuración del Canvas_________________________________________
 
-const devicePixelRatio = window.devicePixelRatio || 1;
-let anchoMapa = window.innerWidth - 100;
-const anchoMaximoMapa = 480;
+const mapa = document.getElementById("mapa");
+const ctx = mapa.getContext("2d");
+ctx.imageSmoothingEnabled = true;
 
-if (anchoMapa > anchoMaximoMapa) {
-    anchoMapa = anchoMaximoMapa;
+const mapa_background = new Image();
+mapa_background.src = "./resources/assets/mokemap.png";
+
+const margin_dinamico_width = window.innerWidth * 0.1; //Es el 10% del ancho de window.
+const ancho_ajustado_dinamico = window.innerWidth - margin_dinamico_width; //Ancho de window menos su 10%
+
+let anchoMapaCanvas = ancho_ajustado_dinamico;
+
+const anchoMaximoMapaCanvas = 480;
+const altoMaximoMapaCanvas = 440;
+
+if (anchoMapaCanvas > anchoMaximoMapaCanvas) {
+    anchoMapaCanvas = anchoMaximoMapaCanvas;
 };
 
-let altoMapa = anchoMapa * 440 / anchoMaximoMapa;
+let altoMapaCanvas = anchoMapaCanvas * altoMaximoMapaCanvas / anchoMaximoMapaCanvas;
 
-mapa.width = anchoMapa;
-mapa.height = altoMapa;
+mapa.width = anchoMapaCanvas;
+mapa.height = altoMapaCanvas;
 
-let size_img_mascota = anchoMapa * 50 / anchoMaximoMapa;
+const tamano_imagen_mascota = 65;
+const tamano_dinamico_imagen_mascota = anchoMapaCanvas * tamano_imagen_mascota / anchoMaximoMapaCanvas;
 
-let hitbox_img = size_img_mascota * 50 / 100;
-let velocidad_de_desplazamiento = mapa.width * 3 / anchoMaximoMapa;
+let hitbox_porcentual_img = 30; //representa el 30% de la imagen de la mascota
+let hitbox_img = tamano_dinamico_imagen_mascota * hitbox_porcentual_img / 100; //Representa el % de hitbox_img de tamano_dinamico_imagen_mascota
+
+let velocidad_de_desplazamiento = 3;
+let velocidad_de_desplazamiento_dinamico = mapa.width * velocidad_de_desplazamiento / anchoMaximoMapaCanvas;
 
 
 // Clase--------------------------------------------------------------
 class Mascotas {
 
-    constructor(nombre, img, id, img_head, enemy_img_head) {
+    constructor(nombre, img, id, img_head_src, enemy_img_head_src) {
 
         this.nombre = nombre;
         this.img = img;
         this.id = id;
         this.ataques = [];
 
-        this.ancho = size_img_mascota;
-        this.alto = size_img_mascota;
+        this.ancho = tamano_dinamico_imagen_mascota;
+        this.alto = tamano_dinamico_imagen_mascota;
         this.x = numeroAleatorio(0, mapa.width - this.ancho);
         this.y = numeroAleatorio(0, mapa.height - this.alto);
         
-        this.mapaFoto = new Image(); //Imagenes Originales de las mascotas
-        this.mapaFoto.src = img; //Imagenes Originales de las mascotas
+        this.img_head_canvas = new Image(); 
+        this.img_head_canvas.src = img_head_src;
 
-        this.mapaFoto2 = new Image();
-        this.mapaFoto2.src = enemy_img_head;
+        /* 
+         ENEMIGO
+        this.img_head_canvas2 = new Image();
+        this.img_head_canvas2.src = enemy_img_head_src; */
 
         this.velocidad_X = 0;
         this.velocidad_Y = 0;
-        this.cabezaFoto = new Image(); //Imagenes Platzi
-        this.cabezaFoto.src = img_head; //Imagenes Platzi
     };
 
     pintarMascotaUsuario() {
 
-        lienzo.drawImage(
-            this.mapaFoto, 
+        ctx.drawImage(
+            this.img_head_canvas, 
             this.x, 
             this.y, 
             this.ancho, 
@@ -108,8 +128,8 @@ class Mascotas {
 
     pintarMascotaEnemigo() {
 
-        lienzo.drawImage(
-            this.mapaFoto2,
+        ctx.drawImage(
+            this.img_head_canvas2,
             this.x,
             this.y,
             this.ancho,
@@ -124,52 +144,52 @@ class Mascotas {
     };
 };
 
-const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.png"};
-const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
-const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.png"};
-
 //Mascotas
 let peluchin = new Mascotas(
-    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas_platzi/pydos_cabeza.png");
 let sazu = new Mascotas(
-    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
+    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/h_sazu.webp");
 let aren = new Mascotas(
-    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
+    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/h_aren.webp");
 let oreo = new Mascotas(
-    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
+    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/h_oreo.webp");
 let loro = new Mascotas(
-    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
+    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/h_loro.webp");
 let guero = new Mascotas(
-    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
+    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/h_guero.webp");
 
 //Mascotas Enemigas
 let enemigo_peluchin = new Mascotas(
-    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/peluchin_sf.jpeg");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/h_peluchin.webp");
 let enemigo_sazu = new Mascotas(
-    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/sazu_sf.jpeg");
+    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/h_sazu.webp");
 let enemigo_aren = new Mascotas(
-    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/aren_sf.jpeg");
+    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/h_aren.webp");
 let enemigo_oreo = new Mascotas(
-    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/oreo_sf.jpeg");
+    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/h_oreo.webp");
 let enemigo_loro = new Mascotas(
-    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/loro_sf.jpeg");
+    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/h_loro.webp");
 let enemigo_guero = new Mascotas(
-    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/guero_sf.jpeg");
+    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/h_guero.webp");
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
 
 //Ataques
-peluchin.ataques.push(piedra, piedra, piedra, papel, tijera);
-sazu.ataques.push(piedra, piedra, piedra, papel, tijera);
-aren.ataques.push(papel, papel, papel, tijera, piedra);
-oreo.ataques.push(papel, papel, papel, tijera, piedra);
-loro.ataques.push(tijera, tijera, tijera, piedra, papel);
-guero.ataques.push(tijera, tijera, tijera, piedra, papel);
+const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.png"};
+const papel = {tipo:"papel", img:"./resources/ataques/papel.png"};
+const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.png"};
 
-// Opciones: Gato Huaniqueo, (guero, mona), kong, regalito, la negra, (bobby, dinky, wanda), hueso, kaiser,
-//claudia gato; pug de arturin;
+const set_ataques_1 = [piedra, piedra, piedra, papel, tijera];
+const set_ataques_2 = [papel, papel, papel, tijera, piedra];
+const set_ataques_3 = [tijera, tijera, tijera, piedra, papel];
 
+peluchin.ataques.push(...set_ataques_1);
+sazu.ataques.push(...set_ataques_1);
+aren.ataques.push(...set_ataques_2);
+oreo.ataques.push(...set_ataques_2);
+loro.ataques.push(...set_ataques_3);
+guero.ataques.push(...set_ataques_3);
 
 //-----------------------------------------------------------------------------------------------------------------
 function iniciarJuego() {
@@ -425,15 +445,15 @@ function iniciarMapa() {
     window.addEventListener("keyup", detenerMovimientoTeclas);
 }
 
-//Aquí dibujo las mascotas y el fondo sobre el lienzo Canvas, muevo los objetos y detecto colisiones.
+//Aquí dibujo las mascotas y el fondo sobre el ctx Canvas, muevo los objetos y detecto colisiones.
 function pintarCanvas() {
     
     mascota_P1.x = mascota_P1.x + mascota_P1.velocidad_X;
     mascota_P1.y = mascota_P1.y + mascota_P1.velocidad_Y;
 
-    lienzo.clearRect(0, 0, mapa.width, mapa.height);
+    ctx.clearRect(0, 0, mapa.width, mapa.height);
 
-    lienzo.drawImage(
+    ctx.drawImage(
         mapa_background,
         0,
         0,
@@ -461,16 +481,16 @@ function pintarCanvas() {
 function mover(direccion) {
 
     if (direccion === "derecha") {
-        mascota_P1.velocidad_X = velocidad_de_desplazamiento;
+        mascota_P1.velocidad_X = velocidad_de_desplazamiento_dinamico;
 
     } else if (direccion === "izquierda") {
-        mascota_P1.velocidad_X = -velocidad_de_desplazamiento;
+        mascota_P1.velocidad_X = -velocidad_de_desplazamiento_dinamico;
 
     } else if (direccion === "abajo") {
-        mascota_P1.velocidad_Y = velocidad_de_desplazamiento;
+        mascota_P1.velocidad_Y = velocidad_de_desplazamiento_dinamico;
 
     } else if (direccion === "arriba") {
-        mascota_P1.velocidad_Y = -velocidad_de_desplazamiento;
+        mascota_P1.velocidad_Y = -velocidad_de_desplazamiento_dinamico;
 
     } else if (direccion === "detener") {
         mascota_P1.velocidad_X = 0;
@@ -621,21 +641,14 @@ function revisar_y_evitar_colisiones_aleatorias() {
 
     do {
 
-        console.log('Se ejecutó el ciclo do while');
-
         if (colisiones.length > 0) {
 
             colisiones.splice(0, colisiones.length);
-            console.log('Se eliminaron los elementos del array colisiones, colisiones = ', colisiones.length);
         };
 
         generar_y_comparar_coordenadas();
 
-        console.log('Colisiones detectados = ', colisiones.length);
-
     } while (colisiones.length > 0);
-
-    console.log('SIN COLISIONES');
 };
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
