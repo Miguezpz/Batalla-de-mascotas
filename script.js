@@ -5,12 +5,18 @@ const section_2 = document.getElementById("section_2");
 const section_3 = document.getElementById("section_3");
 const section_4 = document.getElementById("section_4");
 
-const div_caja_mascotas = document.getElementById("caja-mascotas");
+//botones
 const boton_seleccionar = document.getElementById("boton-seleccionar");
+const boton_de_reiniciar = document.getElementById("boton-de-reiniciar");
+let boton_presionado;
+let botones_ataques_P1;
+let botones_por_su_class;
+
+//divs
 const caja_botones_ataque = document.getElementById("caja-botones-ataque");
 const registro_ataques_J1 = document.getElementById("ataques-J1");
 const registro_ataques_J2_CPU = document.getElementById("ataques-J2/CPU");
-const boton_de_reiniciar = document.getElementById("boton-de-reiniciar");
+const div_caja_mascotas = document.getElementById("caja-mascotas");
 const div_resultado_del_combate = document.getElementById("resultado-del-combate")
 const div_nombre_mascota_J1 = document.getElementById("nombre-mascota-J1");
 const div_nombre_mascota_J2_CPU = document.getElementById("nombre-mascota-J2/CPU");
@@ -19,7 +25,7 @@ const div_img_mascota_J2_CPU = document.getElementById("img-J2/CPU");
 const div_victorias_J1 = document.getElementById("victorias-J1");
 const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
 
-//inputs mascotas
+//radio inputs de mascotas
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
@@ -32,14 +38,12 @@ let mascota_P1;
 let mascota_P2;
 let mascota_CPU;
 
+//otros
 let ataques_P2;
-let botones_ataques_P1;
-let botones_por_su_class;
 let victorias_P1 = 0;
 let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
-let boton_presionado;
 let intervalo;
 
 //arrays
