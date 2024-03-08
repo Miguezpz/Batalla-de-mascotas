@@ -45,6 +45,7 @@ let victorias_P2 = 0;
 let victorias_CPU = 0;
 let contador_de_ataques_seleccionados = 0;
 let intervalo;
+let game_mode;
 
 //arrays
 let ataques_P1 = [];
@@ -109,10 +110,8 @@ class Mascotas {
         this.img_head_canvas = new Image(); 
         this.img_head_canvas.src = img_head_src;
 
-        /* 
-         ENEMIGO
-        this.img_head_canvas2 = new Image();
-        this.img_head_canvas2.src = enemy_img_head_src; */
+        this.img_head_canvas_enemy = new Image();
+        this.img_head_canvas_enemy.src = enemy_img_head_src;
 
         this.velocidad_X = 0;
         this.velocidad_Y = 0;
@@ -132,7 +131,7 @@ class Mascotas {
     pintarMascotaEnemigo() {
 
         ctx.drawImage(
-            this.img_head_canvas2,
+            this.img_head_canvas_enemy,
             this.x,
             this.y,
             this.ancho,
@@ -149,17 +148,17 @@ class Mascotas {
 
 //Mascotas
 let peluchin = new Mascotas(
-    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/h_peluchin.webp");
+    "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/jugador/h_peluchin.jpg", '/resources/mascotas_canvas/enemigo/h_peluchin_enemigo.webp');
 let sazu = new Mascotas(
-    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/h_sazu.webp");
+    "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/jugador/h_sazu.jpg", '/resources/mascotas_canvas/enemigo/h_sazu_enemigo.webp');
 let aren = new Mascotas(
-    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/h_aren.webp");
+    "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/jugador/h_aren.jpg", '/resources/mascotas_canvas/enemigo/h_aren_enemigo.webp');
 let oreo = new Mascotas(
-    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/h_oreo.webp");
+    "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/jugador/h_oreo.jpg", '/resources/mascotas_canvas/enemigo/h_oreo_enemigo.webp');
 let loro = new Mascotas(
-    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/h_loro.webp");
+    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/jugador/h_loro.jpg", '/resources/mascotas_canvas/enemigo/h_loro_enemigo.webp');
 let guero = new Mascotas(
-    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/h_guero.webp");
+    "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/jugador/h_guero.jpg", '/resources/mascotas_canvas/enemigo/h_guero_enemigo.webp');
     
 mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
 
@@ -181,6 +180,8 @@ guero.ataques.push(...set_ataques_3);
 
 //-----------------------------------------------------------------------------------------------------------------
 function iniciarJuego() {
+
+    game_mode = 'campaigne';
 
     mascotas.forEach(x => {
         let estructura = `
@@ -231,26 +232,6 @@ function seleccionarMascota_P1() {
     accionesPreviasModo_historia();
 };
 
-function cargarMascotasEnemigas() {
-
-    //Mascotas Enemigas
-    let enemigo_peluchin = new Mascotas(
-        "Peluchin", "./resources/mascotas/peluchin.jpg", "peluchin_id", "/resources/mascotas_canvas/h_peluchin.webp");
-    let enemigo_sazu = new Mascotas(
-        "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/h_sazu.webp");
-    let enemigo_aren = new Mascotas(
-        "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/h_aren.webp");
-    let enemigo_oreo = new Mascotas(
-        "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/h_oreo.webp");
-    let enemigo_loro = new Mascotas(
-        "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/h_loro.webp");
-    let enemigo_guero = new Mascotas(
-        "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/h_guero.webp");
-
-    mascotas_enemigas.push(enemigo_peluchin, enemigo_sazu, enemigo_aren, enemigo_oreo, enemigo_loro, enemigo_guero);
-    //No olvides crear mascotas_enemigas en el scoope global si es que necesitas cargar las mascotas enemigas.
-};
-
 function numeroAleatorio(min, max) {
 
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -273,17 +254,19 @@ function mostrarVictorias(victorias_jugador, victorias_enemigo) {
 
 function accionesPreviasModo_historia() {
 
-    //index_mascota_P1 guarda la posición del elemento que tiene el mismo nombre que la mascota seleccionada por el jugador.
-    let index_mascota_P1 = mascotas.findIndex((mscta) => mscta.nombre === mascota_P1.nombre);
-    //Aquí remuevo la mascota identica a la del jugador usando el método .splice del array mascotas.
-    mascotas.splice(index_mascota_P1, 1);
-    /*Guardo los elementos restantes del array mascotas y la mascota seleccionada por el usuario en el array mascotas_canvas,
-    este array solo se utiliza en la función revisar_y_evitar_colisiones_aleatorias()*/
-    mascotas_canvas.push(mascota_P1, ...mascotas);
+    if (game_mode === 'campaigne') {
+        //index_mascota_P1 guarda la posición del elemento que tiene el mismo nombre que la mascota seleccionada por el jugador.
+        let index_mascota_P1 = mascotas.findIndex((mscta) => mscta.nombre === mascota_P1.nombre);
+        //Aquí remuevo la mascota identica a la del jugador usando el método .splice del array mascotas.
+        mascotas.splice(index_mascota_P1, 1);
+        /*Guardo los elementos restantes del array mascotas y la mascota seleccionada por el usuario en el array mascotas_canvas,
+        este array solo se utiliza en la función revisar_y_evitar_colisiones_aleatorias()*/
+        mascotas_canvas.push(mascota_P1, ...mascotas);
 
-    revisar_y_evitar_colisiones_aleatorias(); // Si hay colisión recoloca mascotas en el canvas
-    secciones("none", "flex", "none", "none", "none");
-    iniciarMapa();
+        revisar_y_evitar_colisiones_aleatorias(); // Si hay colisión recoloca mascotas en el canvas
+        secciones("none", "flex", "none", "none", "none");
+        iniciarMapa();
+    };
 };
 
 function seleccionarEnemigoAleatorio() {
@@ -325,14 +308,18 @@ function generarImagenesDeMascotas() {
 
 function generarBotonesDeAtaque() {
     
-    ataques_P1.push(...mascota_P1.ataques); //Optimizado
+    // Agrega todos los ataques de la mascota del jugador 1 al array ataques_P1
+    ataques_P1.push(...mascota_P1.ataques);
 
+    // Itera sobre el array ataques_P1 para crear un botón por cada ataque.
     ataques_P1.forEach(x => {
         botones_ataques_P1 = `
             <button class="botones-generados">
                 <img src="${x.img}" alt="${x.tipo}">   
             </button>
-        `
+        `;
+
+        // Añade el botón creado al HTML contenedor de los botones de ataque.
         caja_botones_ataque.innerHTML += botones_ataques_P1;
         botones_por_su_class = document.querySelectorAll(".botones-generados img");
 
@@ -340,38 +327,42 @@ function generarBotonesDeAtaque() {
 
             x.parentNode.addEventListener("click", (e) => {
 
-                boton_presionado = e.target.parentNode;
+                /*La primer condición representa el boton ligado al div. La 2da representa el boton ligado al img.
+                El orden de las condiciones importa ya que las propiedades de la 1ra condicion solo las posee el div*/
+                boton_presionado = e.target.lastElementChild ?.parentNode || e.target.parentNode;
                 
-                if (e.target.attributes.src.value === piedra.img) {
+                // Obtiene el valor de 'alt' de la imagen, independientemente de dónde se hizo clic.
+                let alt_img = e.target.firstElementChild?.alt || e.target.alt; //Buscamos alt en el elemento del div o en el botón que contiene la img.
+                console.log(alt_img);
+                let seleccion_ataque_jugador;
+                
+                // Determina la imagen de ataque seleccionada basándose en el valor de 'alt'.
+                if (alt_img === 'piedra') {
+                    seleccion_ataque_jugador = piedra.img;
 
-                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
-                    boton_presionado.disabled = true;
-                    contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(piedra.img);
+                } else if (alt_img === 'papel') {
+                    seleccion_ataque_jugador = papel.img;
 
-                } else if (e.target.attributes.src.value === papel.img) {
+                } else if (alt_img === 'tijera') {
+                    seleccion_ataque_jugador = tijera.img;
 
-                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
-                    boton_presionado.disabled = true;
-                    contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(papel.img);
+                } else {
+                    return;
+                };
 
-                } else if (e.target.attributes.src.value === tijera.img) {
-                    
-                    boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
-                    boton_presionado.disabled = true;
-                    contador_de_ataques_seleccionados ++;
-                    ataqueSeleccionado_P1(tijera.img);
-                }
-            })
-        })
-    })
+                // Cambia el estilo del botón para indicar que ha sido seleccionado y lo deshabilita.
+                boton_presionado.style.background = "rgba(0, 0, 0, 0.4)";
+                boton_presionado.disabled = true;
 
-    //En este ejemplo, las imágenes se seleccionan usando document.querySelectorAll('.botones-generados img'), 
-    //lo que devuelve una lista de todas las imágenes dentro de los botones generados. Luego, se itera sobre esta 
-    //lista y se añade el EventListener correspondiente a cada imagen. Al hacer clic en la imagen, se comprueba su 
-    //atributo alt en lugar de textContent, ya que el contenido del botón ahora incluye tanto la imagen como el emoji.
-}
+                // Incrementa el contador de ataques seleccionados.
+                contador_de_ataques_seleccionados ++;
+
+                // Llama a la función que maneja el ataque seleccionado por el jugador 1.
+                ataqueSeleccionado_P1(seleccion_ataque_jugador);
+            });
+        });
+    });
+};
 
 function ataqueSeleccionado_P1(x) {
 
@@ -381,7 +372,7 @@ function ataqueSeleccionado_P1(x) {
         let numero_random = numeroAleatorio(0, ataques_CPU.length - 1);
         ataques_aleatorios_CPU.push(ataques_CPU[numero_random].img);
         ataques_CPU.splice(numero_random, 1);
-    }
+    };
 
     ataqueAleatorio_CPU();
     combate();
@@ -478,7 +469,7 @@ function pintarCanvas() {
     mascota_P1.pintarMascotaUsuario();
 
     mascotas.forEach(enemigo => {
-        enemigo.pintarMascotaUsuario();
+        enemigo.pintarMascotaEnemigo();
     });
 
     if (mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
@@ -602,7 +593,7 @@ function detenerEnBordesDelMapa(jugador) {
 
 function revisar_y_evitar_colisiones_aleatorias() {
 
-    let colisiones = [];
+    let colisiones = 0;
 
     function evitarColision(mascota_1, mascota_2) {
 
@@ -627,7 +618,7 @@ function revisar_y_evitar_colisiones_aleatorias() {
         };
     
         //Si hubo colisión
-        colisiones.push('Colision');
+        colisiones++;
     };
     
     function generar_y_comparar_coordenadas() {
@@ -647,14 +638,13 @@ function revisar_y_evitar_colisiones_aleatorias() {
 
     do {
 
-        if (colisiones.length > 0) {
-
-            colisiones.splice(0, colisiones.length);
+        if (colisiones > 0) {
+            colisiones = 0;
         };
 
         generar_y_comparar_coordenadas();
 
-    } while (colisiones.length > 0);
+    } while (colisiones > 0);
 };
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
@@ -665,5 +655,17 @@ window.addEventListener("load", iniciarJuego);
  // Lo anterior ya lo resolví, y el código se encuentra en la carpeta curso_terminado;
 
  /*Objetivo actual: 
-    Buscar optimizaciones
+    Crear modo campaña del mapa.
+
+    Cuando chocas con un enemigo entonces .splice esa mascota
+    Si ganas el combate
+    Si enemigos left = 0    si enemigos > 0           empate
+    boton = 'reiniciar'      boton = 'continuar'     boton = 'repetir'
+
+    boton continuar...
+
+    regresa el usuario al mapa (podemos reutilizar evitarColision),
+
  */
+
+/* No olvides el código para limpiar un array: mi_array.splice(0, mi_array.length) */
