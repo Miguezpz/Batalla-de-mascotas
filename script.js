@@ -167,9 +167,12 @@ const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.webp"};
 const papel = {tipo:"papel", img:"./resources/ataques/papel.webp"};
 const tijera = {tipo:"tijera", img:"./resources/ataques/tijeras.webp"};
 
-const set_ataques_1 = [piedra, piedra, piedra, papel, tijera];
-const set_ataques_2 = [papel, papel, papel, tijera, piedra];
-const set_ataques_3 = [tijera, tijera, tijera, piedra, papel];
+//La cantidad de ataques en cada set debe ser igual
+const set_ataques_1 = [piedra, piedra, papel, tijera];
+const set_ataques_2 = [papel, papel, tijera, piedra];
+const set_ataques_3 = [tijera, tijera, piedra, papel];
+
+let cantidad_de_ataques_por_set = (set_ataques_1.length + set_ataques_2.length + set_ataques_3.length) / 3;
 
 peluchin.ataques.push(...set_ataques_1);
 sazu.ataques.push(...set_ataques_1);
@@ -380,7 +383,7 @@ function ataqueSeleccionado_P1(x) {
 
 function combate() {
 
-    if (contador_de_ataques_seleccionados === 5) {
+    if (contador_de_ataques_seleccionados === cantidad_de_ataques_por_set) {
 
         for (let i = 0; i < 5; i ++) {
 
