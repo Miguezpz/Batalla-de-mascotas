@@ -285,8 +285,14 @@ function seleccionarEnemigoAleatorio() {
 };
 
 function seleccionarEnemigoManual(enemigo) {
-    
-    mascota_CPU = mascotas[mascotas.findIndex(mascota => mascota.nombre === enemigo.nombre)]; //Optimizado //Fijate que aquí no se utiliza el array mascotas_enemigas
+
+    let enemigo_index = mascotas.findIndex((mascota) => mascota.nombre === enemigo.nombre);
+    mascota_CPU = mascotas[enemigo_index];
+    mascotas.splice(enemigo_index, 1); //Aquí remuevo la mascota con la que el usuario se enfrenta
+
+    console.log(mascotas);
+    console.log(enemigo.nombre);
+
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
 
@@ -408,18 +414,38 @@ function combate() {
             }
         };
 
+        let resultado_combate;
+
         if (victorias_P1 > victorias_CPU) {
+            resultado_combate = 'win';
             resultadoCombate("🍕¡Ganaste!🍕");
+
         } else if (victorias_P1 < victorias_CPU) {
+            resultado_combate = 'lose';
             resultadoCombate("Perdiste😪");
+
         } else if (victorias_P1 === victorias_CPU) {
+            resultado_combate = 'tie';
             resultadoCombate("Empate🦧");
-        }
+        };
 
         mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
+
+        if (mascotas.length === 0 || resultado_combate === 'lose') {
+            boton_de_reiniciar.innerHTML = 'Volver al menú';
+
+        } else if (resultado_combate === 'tie') {
+            boton_de_reiniciar.innerHTML = 'Reintentar';
+            
+        } else {
+            boton_de_reiniciar.innerHTML = 'Continuar';
+        };
+
+        console.log(boton_de_reiniciar);
+
         secciones("none", "none", "flex", "flex", "flex");
-    }
-}
+    };
+};
 
 function resultadoCombate(text) {
 
@@ -652,23 +678,18 @@ function revisar_y_evitar_colisiones_aleatorias() {
 //------------------------------------------------
 window.addEventListener("load", iniciarJuego);
 
-/* 'He descubierto un error, cuando presiono sobre un ataque especificamente en el borde el botón entonces genera un error en la consola,
- debo averiguar como hacer que aunque se haga click en la orilla del botón se accione el botón correspondiente' */
+/*
+    Objetivo actual: 
+        Crear modo campaña del mapa.
 
- // Lo anterior ya lo resolví, y el código se encuentra en la carpeta curso_terminado;
+        Cuando chocas con un enemigo entonces .splice esa mascota
+        Si ganas el combate
+        Si enemigos left = 0    si enemigos > 0           empate
+        boton = 'reiniciar'      boton = 'continuar'     boton = 'repetir'
 
- /*Objetivo actual: 
-    Crear modo campaña del mapa.
+        boton continuar...
 
-    Cuando chocas con un enemigo entonces .splice esa mascota
-    Si ganas el combate
-    Si enemigos left = 0    si enemigos > 0           empate
-    boton = 'reiniciar'      boton = 'continuar'     boton = 'repetir'
+        regresa el usuario al mapa (podemos reutilizar evitarColision),
 
-    boton continuar...
-
-    regresa el usuario al mapa (podemos reutilizar evitarColision),
-
- */
-
-/* No olvides el código para limpiar un array: mi_array.splice(0, mi_array.length) */
+        No olvides el código para limpiar un array: mi_array.splice(0, mi_array.length) 
+*/
