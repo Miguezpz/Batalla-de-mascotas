@@ -442,6 +442,7 @@ function combate() {
 
 function continuar_juego_despues_de_ganar() {
     reiniciar_combate_y_informacion();
+    revisar_y_evitar_colisiones_aleatorias()
     iniciarMapa();
     secciones('none', 'flex', 'none', 'none', 'none');
 };
