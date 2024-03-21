@@ -202,7 +202,6 @@ function iniciarJuego() {
     input_radio_guero = document.getElementById("guero_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
-    boton_de_reiniciar.addEventListener("click", _ => location.reload());
 
     secciones("flex", "none", "none", "none", "none");
 };
@@ -290,9 +289,6 @@ function seleccionarEnemigoManual(enemigo) {
     mascota_CPU = mascotas[enemigo_index];
     mascotas.splice(enemigo_index, 1); //Aquí remuevo la mascota con la que el usuario se enfrenta
 
-    console.log(mascotas);
-    console.log(enemigo.nombre);
-
     div_nombre_mascota_J2_CPU.innerHTML = mascota_CPU.nombre;
     ataques_CPU.push(...mascota_CPU.ataques); //Spread operator (...)
 
@@ -342,7 +338,6 @@ function generarBotonesDeAtaque() {
                 
                 // Obtiene el valor de 'alt' de la imagen, independientemente de dónde se hizo clic.
                 let alt_img = e.target.firstElementChild?.alt || e.target.alt; //Buscamos alt en el elemento del div o en el botón que contiene la img.
-                console.log(alt_img);
                 let seleccion_ataque_jugador;
                 
                 // Determina la imagen de ataque seleccionada basándose en el valor de 'alt'.
@@ -414,43 +409,78 @@ function combate() {
             }
         };
 
-        let resultado_combate;
+        if (mascotas.length === 0 && victorias_P1 > victorias_CPU) {
 
-        if (victorias_P1 > victorias_CPU) {
-            resultado_combate = 'win';
+            resultadoCombate("🟢¡Derrotaste a todas las mascotas!🟢")
+            boton_de_reiniciar.innerHTML = 'Volver al menú';
+            boton_de_reiniciar.addEventListener('click', _ => location.reload());
+            
+        } else if (victorias_P1 > victorias_CPU) {
+
             resultadoCombate("🍕¡Ganaste!🍕");
+            boton_de_reiniciar.innerHTML = 'Continuar';
+            boton_de_reiniciar.addEventListener("click", continuar_juego_despues_de_ganar);
 
         } else if (victorias_P1 < victorias_CPU) {
-            resultado_combate = 'lose';
+            
             resultadoCombate("Perdiste😪");
+            boton_de_reiniciar.innerHTML = 'Volver al menú';
+            boton_de_reiniciar.addEventListener("click", _ => location.reload());
 
         } else if (victorias_P1 === victorias_CPU) {
-            resultado_combate = 'tie';
+            
             resultadoCombate("Empate🦧");
+            boton_de_reiniciar.innerHTML = 'Reintentar';
+            boton_de_reiniciar.addEventListener("click", repetir_combate);
         };
 
         mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
-
-        if (mascotas.length === 0 || resultado_combate === 'lose') {
-            boton_de_reiniciar.innerHTML = 'Volver al menú';
-
-        } else if (resultado_combate === 'tie') {
-            boton_de_reiniciar.innerHTML = 'Reintentar';
-            
-        } else {
-            boton_de_reiniciar.innerHTML = 'Continuar';
-        };
-
-        console.log(boton_de_reiniciar);
-
+        imprimirAtaques();
         secciones("none", "none", "flex", "flex", "flex");
     };
+};
+
+function continuar_juego_despues_de_ganar() {
+    reiniciar_combate_y_informacion();
+    iniciarMapa();
+    secciones('none', 'flex', 'none', 'none', 'none');
+};
+
+function repetir_combate() {
+
+    secciones("none", "none", "flex", "none", "flex");
+    reiniciar_combate_y_informacion();
+    ataques_CPU.push(...mascota_CPU.ataques);
+    mostrarVictorias("🏆" + victorias_P1, "💀" + victorias_CPU);
+    generarBotonesDeAtaque();
+};
+
+function reiniciar_combate_y_informacion() {
+
+    ataques_P1.splice(0, ataques_P1.length);
+    ataques_aleatorios_CPU.splice(0, ataques_aleatorios_CPU.length);
+    ataques_aleatorios_CPU.splice(0, ataques_aleatorios_CPU.length);
+    ataques_seleccionados_P1.splice(0, ataques_seleccionados_P1.length);
+    contador_de_ataques_seleccionados = 0;
+    victorias_P1 = 0;
+    victorias_CPU = 0;
+
+    limpiar_childNodes_de_div_parent(caja_botones_ataque);
+    limpiar_childNodes_de_div_parent(registro_ataques_J1);
+    limpiar_childNodes_de_div_parent(registro_ataques_J2_CPU);
+};
+
+function limpiar_childNodes_de_div_parent(el_div_o_seccion) {
+
+    Array.from(el_div_o_seccion.childNodes).forEach((hijo) => {
+
+        el_div_o_seccion.removeChild(hijo);
+    });
 };
 
 function resultadoCombate(text) {
 
     div_resultado_del_combate.innerHTML = text;
-    imprimirAtaques();
 };
 
 function imprimirAtaques() {
@@ -495,11 +525,11 @@ function pintarCanvas() {
         mapa.height
     );
 
-    mascota_P1.pintarMascotaUsuario();
-
     mascotas.forEach(enemigo => {
         enemigo.pintarMascotaEnemigo();
     });
+
+    mascota_P1.pintarMascotaUsuario();
 
     if (mascota_P1.velocidad_X !== 0 || mascota_P1.velocidad_Y !== 0) {
 
@@ -529,8 +559,8 @@ function mover(direccion) {
     } else if (direccion === "detener") {
         mascota_P1.velocidad_X = 0;
         mascota_P1.velocidad_Y = 0;
-    }
-}
+    };
+};
 
 function moverConTeclas(e) {
 
@@ -587,6 +617,7 @@ function detectarColision(enemigo, jugador) {
 
     mover('detener');
     clearInterval(intervalo);
+    boton_de_reiniciar.removeEventListener('click', continuar_juego_despues_de_ganar); //Remueve el EventListener del boton_de_reiniciar
     secciones("none", "none", "flex", "none", "flex");
     seleccionarEnemigoManual(enemigo);
 };
@@ -692,4 +723,34 @@ window.addEventListener("load", iniciarJuego);
         regresa el usuario al mapa (podemos reutilizar evitarColision),
 
         No olvides el código para limpiar un array: mi_array.splice(0, mi_array.length) 
+
+        Eliminar velocidades, solo quedarse con una unica velocidad, no hay necesidad de tener velocidad_y o x;
+        Creo que ambas velocidades son necesarias, ya que quizá permiten movimientos de eje Z ?????? Y si funciona con una velocidad?
+
+        Se acumulan los escuchadores de eventos...
+        solucionado, remuevo los eventlisteners con target.removeEventListener(trigger, function);
+
+        Organizar código creado
+
+
+        En la funcion imprimirAtaques()  por que creamos un elemento p y luego lo inyectamos al DOM, por que no
+        simplemente inyecto una imagen, por ejemplo crear un elemento img y ese mismo se inyecta. Después de solucionar esto
+        muy seguramente deberé de ajustar el diseño desde CSS.
+        
+        PTSSS Has cambiado el orden de como se pintan la mascota del usuario y las mascotas enemigas, no lo olvides. Agregalo al commit.
+        También redimensiones las img de las mascotas a 1200 x 1170
+
+        /////En dimension de celular hacer grid 2x2 en la caja de los botones de ataque.
+
+        Continuar analizando el panel de combate para hacer mas simple las medidas con porcentajes, pista:
+
+        <div>
+            <p></p>
+            <img>
+            <etiqueta vacia>  || ajustar h de imagen a un porcentaje que deje otro porcentaje en blanco como si fuera un margin-bottom
+
+        </div>\
+        
+        Las imgs de las mascotas no tienen las mismas dimensiones
+        solucionado, ahora las imgs tienen las mismas dimensiones
 */
