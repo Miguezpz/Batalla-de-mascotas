@@ -59,10 +59,10 @@ let mascotas_canvas = [];
 
 const mapa = document.getElementById("mapa");
 const ctx = mapa.getContext("2d");
-ctx.imageSmoothingEnabled = true;
+ctx.imageSmoothingEnabled = false;
 
 const mapa_background = new Image();
-mapa_background.src = "./resources/assets/mokemap_2.jpg";
+mapa_background.src = "./resources/assets/mokemap_2.png";
 
 const margin_dinamico_width = window.innerWidth * 0.1; //Es el 10% del ancho de window.
 const ancho_ajustado_dinamico = window.innerWidth - margin_dinamico_width; //Ancho de window menos su 10%
@@ -80,6 +80,8 @@ let altoMapaCanvas = anchoMapaCanvas * altoMaximoMapaCanvas / anchoMaximoMapaCan
 
 mapa.width = anchoMapaCanvas;
 mapa.height = altoMapaCanvas;
+
+console.log(mapa.width, 'x', mapa.height);
 
 const tamano_imagen_mascota = 65;
 const tamano_dinamico_imagen_mascota = anchoMapaCanvas * tamano_imagen_mascota / anchoMaximoMapaCanvas;
@@ -720,4 +722,9 @@ window.addEventListener("load", iniciarJuego);
         También redimensiones las img de las mascotas a 1200 x 1170
 
         /////En dimension de celular hacer grid 2x2 en la caja de los botones de ataque.
+
+        Se me ocurre que si en CSS contemplo unicamente 2 medias entonces debo tener 3 tipos de imagen para cada escalado sobre las mascotas canvas y
+        también del mapa de batalla.
+
+        Las dimensiones del mapa funciona hasta el document.width 628, entonces a partir de esa media para abajo ajustar.
 */
