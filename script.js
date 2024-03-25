@@ -29,13 +29,12 @@ const div_victorias_J2_CPU = document.getElementById("victorias-J2/CPU");
 let input_radio_peluchin;
 let input_radio_sazu;
 let input_radio_aren;
+let input_radio_luna;
 let input_radio_oreo;
-let input_radio_loro;
 let input_radio_guero;
 
 //players
 let mascota_P1;
-let mascota_P2;
 let mascota_CPU;
 
 //otros
@@ -63,15 +62,15 @@ const ctx = mapa.getContext("2d");
 ctx.imageSmoothingEnabled = true;
 
 const mapa_background = new Image();
-mapa_background.src = "./resources/assets/mokemap.png";
+mapa_background.src = "./resources/assets/mokemap_2.jpg";
 
 const margin_dinamico_width = window.innerWidth * 0.1; //Es el 10% del ancho de window.
 const ancho_ajustado_dinamico = window.innerWidth - margin_dinamico_width; //Ancho de window menos su 10%
 
 let anchoMapaCanvas = ancho_ajustado_dinamico;
 
-const anchoMaximoMapaCanvas = 480;
-const altoMaximoMapaCanvas = 440;
+const anchoMaximoMapaCanvas = 600; //default: 480
+const altoMaximoMapaCanvas = 445; //default: 440
 
 if (anchoMapaCanvas > anchoMaximoMapaCanvas) {
     anchoMapaCanvas = anchoMaximoMapaCanvas;
@@ -153,14 +152,14 @@ let sazu = new Mascotas(
     "Sazu", "./resources/mascotas/sazu.jpg", "sazu_id", "/resources/mascotas_canvas/jugador/h_sazu.jpg", '/resources/mascotas_canvas/enemigo/h_sazu_enemigo.webp');
 let aren = new Mascotas(
     "Aren", "./resources/mascotas/aren.png", "aren_id", "/resources/mascotas_canvas/jugador/h_aren.jpg", '/resources/mascotas_canvas/enemigo/h_aren_enemigo.webp');
+let luna = new Mascotas(
+    "Luna", "./resources/mascotas/luna.jpg", "luna_id", "/resources/mascotas_canvas/jugador/h_luna.jpg", '/resources/mascotas_canvas/enemigo/h_luna_enemigo.webp');
 let oreo = new Mascotas(
     "Oreo", "./resources/mascotas/oreo.jpg", "oreo_id", "/resources/mascotas_canvas/jugador/h_oreo.jpg", '/resources/mascotas_canvas/enemigo/h_oreo_enemigo.webp');
-let loro = new Mascotas(
-    "Loro", "./resources/mascotas/loro.jpg", "loro_id", "/resources/mascotas_canvas/jugador/h_loro.jpg", '/resources/mascotas_canvas/enemigo/h_loro_enemigo.webp');
 let guero = new Mascotas(
     "Güero", "./resources/mascotas/güero.jpg", "guero_id", "/resources/mascotas_canvas/jugador/h_guero.jpg", '/resources/mascotas_canvas/enemigo/h_guero_enemigo.webp');
     
-mascotas.push(peluchin,sazu,aren,oreo,loro,guero);
+mascotas.push(peluchin,sazu,aren,luna,oreo,guero);
 
 //Ataques
 const piedra = {tipo:"piedra", img:"./resources/ataques/piedra.webp"};
@@ -177,8 +176,8 @@ let cantidad_de_ataques_por_set = (set_ataques_1.length + set_ataques_2.length +
 peluchin.ataques.push(...set_ataques_1);
 sazu.ataques.push(...set_ataques_1);
 aren.ataques.push(...set_ataques_2);
-oreo.ataques.push(...set_ataques_2);
-loro.ataques.push(...set_ataques_3);
+luna.ataques.push(...set_ataques_2);
+oreo.ataques.push(...set_ataques_3);
 guero.ataques.push(...set_ataques_3);
 
 //-----------------------------------------------------------------------------------------------------------------
@@ -198,7 +197,7 @@ function iniciarJuego() {
     input_radio_sazu = document.getElementById("sazu_id");
     input_radio_aren = document.getElementById("aren_id");
     input_radio_oreo = document.getElementById("oreo_id");
-    input_radio_loro = document.getElementById("loro_id");
+    input_radio_luna = document.getElementById("luna_id");
     input_radio_guero = document.getElementById("guero_id");
 
     boton_seleccionar.addEventListener("click", seleccionarMascota_P1);
@@ -220,8 +219,8 @@ function seleccionarMascota_P1() {
     } else if (input_radio_oreo.checked) {
         mascota_P1 = oreo;
 
-    } else if (input_radio_loro.checked) {
-        mascota_P1 = loro;
+    } else if (input_radio_luna.checked) {
+        mascota_P1 = luna;
 
     } else if (input_radio_guero.checked) {
         mascota_P1 = guero;
@@ -441,6 +440,7 @@ function combate() {
 };
 
 function continuar_juego_despues_de_ganar() {
+
     reiniciar_combate_y_informacion();
     revisar_y_evitar_colisiones_aleatorias()
     iniciarMapa();
@@ -712,46 +712,12 @@ window.addEventListener("load", iniciarJuego);
 
 /*
     Objetivo actual: 
-        Crear modo campaña del mapa.
-
-        Cuando chocas con un enemigo entonces .splice esa mascota
-        Si ganas el combate
-        Si enemigos left = 0    si enemigos > 0           empate
-        boton = 'reiniciar'      boton = 'continuar'     boton = 'repetir'
-
-        boton continuar...
-
-        regresa el usuario al mapa (podemos reutilizar evitarColision),
-
-        No olvides el código para limpiar un array: mi_array.splice(0, mi_array.length) 
-
+        
         Eliminar velocidades, solo quedarse con una unica velocidad, no hay necesidad de tener velocidad_y o x;
         Creo que ambas velocidades son necesarias, ya que quizá permiten movimientos de eje Z ?????? Y si funciona con una velocidad?
-
-        Se acumulan los escuchadores de eventos...
-        solucionado, remuevo los eventlisteners con target.removeEventListener(trigger, function);
-
-        Organizar código creado
-
-
-        En la funcion imprimirAtaques()  por que creamos un elemento p y luego lo inyectamos al DOM, por que no
-        simplemente inyecto una imagen, por ejemplo crear un elemento img y ese mismo se inyecta. Después de solucionar esto
-        muy seguramente deberé de ajustar el diseño desde CSS.
         
         PTSSS Has cambiado el orden de como se pintan la mascota del usuario y las mascotas enemigas, no lo olvides. Agregalo al commit.
         También redimensiones las img de las mascotas a 1200 x 1170
 
         /////En dimension de celular hacer grid 2x2 en la caja de los botones de ataque.
-
-        Continuar analizando el panel de combate para hacer mas simple las medidas con porcentajes, pista:
-
-        <div>
-            <p></p>
-            <img>
-            <etiqueta vacia>  || ajustar h de imagen a un porcentaje que deje otro porcentaje en blanco como si fuera un margin-bottom
-
-        </div>\
-        
-        Las imgs de las mascotas no tienen las mismas dimensiones
-        solucionado, ahora las imgs tienen las mismas dimensiones
 */
