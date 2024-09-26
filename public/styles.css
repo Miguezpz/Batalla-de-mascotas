@@ -1,0 +1,456 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+
+* {
+    margin:0px;
+    padding: 0px;
+    box-sizing: content-box;
+}
+
+body {
+    background-color: #FFD95A;
+    color: black;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Seccion 1 _________________________________________________________________________*/
+
+#section_1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    margin: 15px 0px 0px 0px;
+    padding: 2px;
+    font-size: 34px;
+    border-radius: 10px;
+    border: black 2px solid;
+    background-color: #F8F6F6;
+}
+
+.subtitulo {
+    margin: 15px 0px 0px 0px;
+    padding: 2px;
+    font-size: 29px;
+    border-radius: 10px;
+}
+
+#caja-mascotas {
+    margin: 15px 0px 0px 0px;
+
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.input-radio-mascotas {
+    display: none;
+}
+
+.label-mascota {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 210px;
+    height: 210px;
+    background-color: #F8F6F6;
+    border-radius: 10px;
+    border: black 2px solid;
+}
+
+.label-mascota:hover {
+    background-color: rgb(235, 169, 235);
+    color:white;
+}
+
+.input-radio-mascotas:checked + .label-mascota {
+    background-color: rgb(201, 91, 201);
+    color: white;
+}
+
+.label-mascota img {
+    margin: 0px;
+    padding: 0px;
+    width: 170px;
+    height: 170px;
+    border-radius: 10px;
+}
+
+#boton-seleccionar {
+    margin: 15px 0px 0px 0px;
+}
+
+
+/* Canvas _________________________________________________________________________*/
+
+#boton-continuar-multijugador {
+    display: none;
+}
+
+#ver-mapa {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#mapa {
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.botones-canvas {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.caja-botones-direccionales {
+    display: grid;
+    grid-template: 50px / 50px 50px 50px;
+    margin-top: 15px;
+}
+
+.direccional_arriba-abajo {
+    display: flex;
+    flex-direction: column;
+    width: 20px;
+    height: 20px;
+}
+
+.caja-up-down {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr;
+}
+.left-right, .up-down {
+    width: auto;
+    height: auto;
+}
+
+.left-right, .up-down {
+    -webkit-touch-callout: none; /* Evita el menú emergente de copiar en iOS */
+    -webkit-user-select: none; /* Evita la selección de texto en iOS */
+    -khtml-user-select: none; /* Evita la selección de texto en Konqueror (un navegador obsoleto) */
+    -moz-user-select: none; /* Evita la selección de texto en Firefox */
+    -ms-user-select: none; /* Evita la selección de texto en Internet Explorer y Edge */
+    user-select: none; /* Evita la selección de texto en otros navegadores modernos */
+}
+/* Seccion 2 _________________________________________________________________________*/
+
+#section_2 {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#caja-botones-ataque {
+    margin: 15px 0px 0px 0px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:20px;
+}
+
+.botones-generados {
+    width: 90px;
+    height: 85px;
+    background-color: #fdefc2;
+    border-radius: 10px;
+}
+
+.botones-generados img {
+    width: 80px;
+    height: 75px;
+}
+
+/* Seccion 3 _________________________________________________________________________*/
+
+#section_3 {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#resultado-del-combate {
+    margin: 15px 0px 0px 0px;
+
+    font-size: 30px;
+}
+
+#boton-de-reiniciar {
+    margin: 10px 0px 0px 0px;
+}
+
+/* Seccion 4 _________________________________________________________________________*/
+
+#section_4 {
+    margin: 20px 0px 25px 0px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:30px;
+}
+
+.panel-combate {
+    display: grid;
+    grid-template: 1fr / 1fr 120px 1fr;    
+    gap:15px;
+}
+
+.div-panel-c {
+    border: solid 2px black;
+    background-color: #F8F6F6;
+    border-radius: 10px;
+    height: 247px;
+}
+
+.mascota-seleccionada {
+    width: 219px;
+    height: 219px;
+}
+
+.cuadro-ataque-seleccionado {
+    width:38px;
+    height:38px;
+    margin-bottom: 4px;
+}
+
+.ataques-seleccionados {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    border: solid 2px black;
+    background-color: #F8F6F6;
+    border-radius: 10px;
+    gap: 15px;
+}
+
+.nombre-mascotas-seleccionadas {
+    text-align: center;
+    font-weight: 800;
+}
+
+.contador-victorias {
+    margin: 4px 0px 8px 0px;
+    padding: 0px 3px;
+    background-color: black;
+    color:white;
+    border-radius: 10px;
+}
+
+
+.imagen-ataque-seleccionado {
+    width: 32px;
+    height: 32px;
+    padding: 1px;
+    border-radius: 10px;
+    border: black 2px solid;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+/* ___________________________________________________________________________________________________________________ */
+@media (max-width: 1000px) {
+    
+    #section_1 {
+        width: auto;
+        height: auto;
+    }
+
+    .titulo {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 15px 40px 0px 40px;
+        padding: 1px 3px;
+        text-align: center;
+        font-size: 27px;
+    }
+
+    .subtitulo {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 23px;
+    }
+
+    #caja-mascotas {
+        margin-top: 40px;
+        width: auto;
+        height: auto;
+        gap: 10px;
+        grid-template: 110px 110px / 110px 110px 110px;
+    }
+
+    .label-mascota {
+        width: auto;
+        height: auto;
+        font-size: 10px;
+    }
+
+    .label-mascota img{
+        width: 85px;
+        height: 85px;
+    }
+
+    #boton-seleccionar {
+        margin-top: 35px;
+    }
+
+    #caja-botones-ataque {
+        margin: 15px 10px 0px 10px;
+        gap:20px;
+    }
+
+    .caja-botones-direccionales {
+        grid-template: 100px / 100px 100px 100px;
+        margin-top: 30px;
+        gap: 4px;
+    }
+
+    .caja-up-down {
+        gap:4px;
+    }
+
+    .left-right, .up-down {
+        width: auto;
+        height: auto;
+        outline: none;
+        outline: none; /* Elimina el contorno de enfoque */
+        box-shadow: none; /* Elimina la sombra o relieve */
+        cursor: pointer; /* Restaura el cursor predeterminado */
+        border: 1px black solid;
+        border-radius: 10px;
+    }
+
+    .left-right:active,
+    .left-right:focus,
+    .up-down:active,
+    .up-down:focus {
+        background-color: rgb(201, 91, 201);
+        outline: none; /* Elimina el contorno de enfoque */
+        box-shadow: none; /* Elimina la sombra o relieve */
+        cursor: pointer; /* Restaura el cursor predeterminado */
+    }
+
+    .botones-generados {
+        width: 80px;
+        height: 80px;
+    }
+
+    .botones-generados img {
+        width: 54px;
+        height: 54px;
+    }
+
+    .panel-combate {
+        grid-template: 1fr / 1fr 80px 1fr;
+        gap: 10px;
+        font-size: 7px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .mascota-seleccionada {
+        width: 130px;
+        height: 130px;
+    }
+
+    .div-panel-c {
+        height: 146px;
+    }
+
+    .contador-victorias {
+        font-size: 7px;
+        text-align: center;
+        margin: 2px 0px 0px 0px;
+    }
+
+    .ataques-seleccionados {
+        gap: 8px;
+    }
+
+    .imagen-ataque-seleccionado {
+        width: 15px;
+        height: 15px;
+        border-radius: 7px;
+    }
+
+    .ataques {
+        height: 129px;
+    }
+
+    .lateral-ataques { /* nuevo */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .cuadro-ataque-seleccionado {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        margin:  10px 5px;
+        width: 15px;
+        height: 15px;
+    }
+}
+/* --------------------------------------- */
+@media (max-width: 200px) {
+    #section_1 {
+        width: auto;
+        height: auto;
+    }
+
+    .titulo {
+        margin-top: 15px;
+        width: 177px;
+        height: 18px;
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .subtitulo {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    #caja-mascotas {
+        margin-top: 40px;
+        width: auto;
+        height: auto;
+        gap: 5px;
+        grid-template: 57px 57px / 57px 57px 57px;
+    }
+
+    .label-mascota {
+        width: auto;
+        height: auto;
+        font-size: 6px;
+    }
+
+    .label-mascota img{
+        width: 40px;
+        height: 40px;
+    }
+
+    #boton-seleccionar {
+        margin-top: 35px;
+    }
+}
